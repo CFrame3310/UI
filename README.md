@@ -60,7 +60,7 @@ Sector:AddDropdown(<string> text, <table> items, <string> default, <bool> multic
 - Example
 ```lua
 local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/CFrame3310/UI/main/Untitled_UI.lua'))()
-library:CreateWatermark('Modify by cframe | {game} | {fps} ') -- (game) will replace with Game name and (fps) will replace with your fps.
+library:CreateWatermark('Modify by cframe | {game} | {fps} ') -- {game} will replace with Game name and {fps} will replace with your fps.
 local Window = library:CreateWindow("Window",Enum.KeyCode.RightControl)
 local Tab = Window:CreateTab("Tab")
 local Tab2 = Window:CreateTab("Tab2")
