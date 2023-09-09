@@ -1,6 +1,6 @@
 # Untitled UI Library
 This Documentation is for " Untitled UI " .<br>
-P.S. This UI isn't my Original but i modified source code for more features.
+P.S. This UI isn't my Original, i just modified source code for more features.
 - Getting Start.
 ```lua
 local library = loadstring(game:HttpGet('https://raw.githubusercontent.com/CFrame3310/UI/main/Untitled_UI.lua'))()
