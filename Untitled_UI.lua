@@ -1,9 +1,8 @@
-
 local library = {
 		flags = { },
 		items = { }
 	}
-    if not _G.Width then _G.Width=492 end
+   	if not _G.Width then _G.Width=492 end
 	if not _G.Height then _G.Height=598 end
     -- Services
 	local players = game:GetService("Players")
