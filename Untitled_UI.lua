@@ -2,8 +2,21 @@ local library = {
 		flags = { },
 		items = { }
 	}
-   	if not _G.Width then _G.Width=492 end
-	if not _G.Height then _G.Height=598 end
+   	if not _G.Width then 
+		if game:GetService("UserInputService").TouchEnabled and game:GetService("UserInputService").KeyboardEnabled == false then
+			_G.Width=492/1.15
+		else
+			_G.Width=492
+		end
+	end
+		
+	if not _G.Height then 
+		if game:GetService("UserInputService").TouchEnabled and game:GetService("UserInputService").KeyboardEnabled == false then
+			_G.Height=598/1.15
+		else
+			_G.Height=598
+		end
+	end
     -- Services
 	local players = game:GetService("Players")
 	local uis = game:GetService("UserInputService")
