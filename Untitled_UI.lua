@@ -3317,6 +3317,7 @@ local library = {
 					if not isfolder(ThemeSystem.secondfolder) then makefolder(ThemeSystem.secondfolder) end
 				end
 				ThemeSystem.getfileslist = function()
+					ThemeSystem:makefolder()
 					local file = {}
 					for i,v in pairs(listfiles(ThemeSystem.secondfolder)) do
 						filename = string.split(v,ThemeSystem.secondfolder..'\\')
