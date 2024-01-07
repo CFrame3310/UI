@@ -91,6 +91,7 @@ if not game.CoreGui:FindFirstChild('Discord') then
 else
 	game.CoreGui:FindFirstChild('Discord'):Destroy()
 end
+
 function DiscordLib:Window(text)
 	local currentservertoggled = ""
 	local minimized = false
@@ -1991,30 +1992,31 @@ function DiscordLib:Window(text)
 		else
 			ServerIco.Image = img
 		end
-
-		if fs == false then
-			TweenService:Create(
-				Server,
-				TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-				{BackgroundColor3 = Color3.fromRGB(114, 137, 228)}
-			):Play()
-			TweenService:Create(
-				ServerBtnCorner,
-				TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-				{CornerRadius = UDim.new(0, 15)}
-			):Play()
-			ServerWhiteFrame:TweenSize(
-				UDim2.new(0, 11, 0, 46),
-				Enum.EasingDirection.Out,
-				Enum.EasingStyle.Quart,
-				.3,
-				true
-			)
-			ServerFrame.Visible = true
-			Server.Name = text .. "Server"
-			currentservertoggled = Server.Name
-			fs = true
-		end
+		pcall(function()
+			if fs == false then
+				TweenService:Create(
+					Server,
+					TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+					{BackgroundColor3 = Color3.fromRGB(114, 137, 228)}
+				):Play()
+				TweenService:Create(
+					ServerBtnCorner,
+					TweenInfo.new(.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+					{CornerRadius = UDim.new(0, 15)}
+				):Play()
+				ServerWhiteFrame:TweenSize(
+					UDim2.new(0, 11, 0, 46),
+					Enum.EasingDirection.Out,
+					Enum.EasingStyle.Quart,
+					.3,
+					true
+				)
+				ServerFrame.Visible = true
+				Server.Name = text .. "Server"
+				currentservertoggled = Server.Name
+				fs = true
+			end
+		end)
 		local ChannelHold = {}
 		function ChannelHold:Channel(text)
 			local ChannelBtn = Instance.new("TextButton")
@@ -3249,5 +3251,5 @@ function DiscordLib:Window(text)
 	end
 	return ServerHold
 end
-print('Loaded Discord UI')
+print('Loaded Discord UI.')
 return DiscordLib
