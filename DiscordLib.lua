@@ -10,6 +10,9 @@ local user
 local tag
 local userinfo = {}
 
+if not 	_G.width then _G.width = 420; end
+if not 	_G.height then _G.height = 340; end
+
 pcall(function()
 	userinfo = HttpService:JSONDecode(readfile("discordlibinfo.txt"));
 end)
@@ -119,7 +122,7 @@ function DiscordLib:Window(text)
 	MainFrame.BorderSizePixel = 0
 	MainFrame.ClipsDescendants = true
 	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-	MainFrame.Size = UDim2.new(0, 681, 0, 396)
+	MainFrame.Size = UDim2.new(0, _G.width, 0, _G.height)
 
 	TopFrame.Name = "TopFrame"
 	TopFrame.Parent = MainFrame
