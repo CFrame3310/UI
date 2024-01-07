@@ -1234,7 +1234,7 @@ local dropdownText = Instance.new("TextLabel")
 dropdownText.Name = "dropdownText"
 dropdownText.Font = Enum.Font.GothamBold
 dropdownText.Text = Info.Text
-dropdownText.TextColor3 = Theme.ItemText
+dropdownText.TextColor3 = Color3.fromRGB(255, 0, 0)
 dropdownText.TextSize = 12
 dropdownText.TextXAlignment = Enum.TextXAlignment.Left
 dropdownText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1561,7 +1561,7 @@ toggleOuter.Parent = toggleFrame
 
 local toggleOuterUIStroke = Instance.new("UIStroke")
 toggleOuterUIStroke.Name = "toggleOuterUIStroke"
-toggleOuterUIStroke.Color = Theme.ToggleOuterUIStroke
+toggleOuterUIStroke.Color = Info.Default and Color3.fromRGB(0,255,0) or Color3.fromRGB(255,0,0)
 toggleOuterUIStroke.Parent = toggleOuter
 
 local toggleOuterUICorner = Instance.new("UICorner")
