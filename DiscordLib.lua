@@ -87,7 +87,10 @@ local Discord = Instance.new("ScreenGui")
 Discord.Name = "Discord"
 Discord.Parent = game.CoreGui
 Discord.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
+if getgenv().UiLib then 
+	getgenv().UiLib:Remove()
+end
+getgenv().UiLib = Discord
 function DiscordLib:Window(text)
 	local currentservertoggled = ""
 	local minimized = false
