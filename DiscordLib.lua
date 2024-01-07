@@ -10,8 +10,8 @@ local user;
 local tag;
 local userinfo = {}
 
-if not 	_G.width then _G.width = 300; end
-if not 	_G.height then _G.height = 200; end
+if not 	_G.width then _G.width = 480; end
+if not 	_G.height then _G.height = 350; end
 
 pcall(function()
 	userinfo = HttpService:JSONDecode(readfile("discordlibinfo.txt"));
