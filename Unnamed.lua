@@ -351,7 +351,8 @@ local unnamed = Instance.new("ScreenGui")
 unnamed.Name = HttpService:GenerateGUID(true)
 unnamed.ZIndexBehavior = Enum.ZIndexBehavior.Global
 unnamed.Parent = CoreGui
-
+if getgenv().UI then getgenv().UI:Destroy() end 
+getgenv().UI = unnamed
 local shadow = Instance.new("ScreenGui")
 shadow.Name = HttpService:GenerateGUID(true)
 shadow.DisplayOrder = -1
@@ -1234,7 +1235,7 @@ local dropdownText = Instance.new("TextLabel")
 dropdownText.Name = "dropdownText"
 dropdownText.Font = Enum.Font.GothamBold
 dropdownText.Text = Info.Text
-dropdownText.TextColor3 = Color3.fromRGB(255, 0, 0)
+dropdownText.TextColor3 = Theme.ItemText
 dropdownText.TextSize = 12
 dropdownText.TextXAlignment = Enum.TextXAlignment.Left
 dropdownText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
