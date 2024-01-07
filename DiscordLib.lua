@@ -147,7 +147,7 @@ function DiscordLib:Window(text)
 	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Title.BackgroundTransparency = 1.000
 	Title.Position = UDim2.new(0.0102790017, 0, 0, 0)
-	Title.Size = UDim2.fromScale(0.5, 0.5)
+	Title.Size = UDim2.fromScale(0.5, 100)
 	Title.Font = Enum.Font.Gotham
 	Title.Text = text
 	Title.TextColor3 = Color3.fromRGB(99, 102, 109)
