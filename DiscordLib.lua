@@ -83,12 +83,14 @@ local function MakeDraggable(topbarobject, object)
 		end
 	)
 end
-
-local Discord = Instance.new("ScreenGui")
-Discord.Name = "Discord"
-Discord.Parent = game.CoreGui
-Discord.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
+if not game.CoreGui:FindFirstChild('Discord') then
+	local Discord = Instance.new("ScreenGui")
+	Discord.Name = "Discord"
+	Discord.Parent = game.CoreGui
+	Discord.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+else
+	game.CoreGui:FindFirstChild('Discord'):Destroy()
+end
 function DiscordLib:Window(text)
 	local currentservertoggled = ""
 	local minimized = false
@@ -3247,4 +3249,5 @@ function DiscordLib:Window(text)
 	end
 	return ServerHold
 end
+print('Loaded Discord UI')
 return DiscordLib
