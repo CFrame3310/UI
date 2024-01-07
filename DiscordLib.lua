@@ -129,7 +129,7 @@ function DiscordLib:Window(text)
 	TopFrame.Name = "TopFrame"
 	TopFrame.Parent = MainFrame
 	TopFrame.BackgroundColor3 = Color3.fromRGB(255, 34, 37)
-	TopFrame.BackgroundTransparency = 0
+	TopFrame.BackgroundTransparency = 1
 	TopFrame.BorderSizePixel = 0
 	TopFrame.Position = UDim2.new(-0.000658480625, 0, 0, 0)
 	TopFrame.Size = UDim2.fromScale(0.5, 0.5)
@@ -140,14 +140,14 @@ function DiscordLib:Window(text)
 	TopFrameHolder.BackgroundTransparency = 1.000
 	TopFrameHolder.BorderSizePixel = 0
 	TopFrameHolder.Position = UDim2.new(-0.000658480625, 0, 0, 0)
-	TopFrameHolder.Size = UDim2.new(0, 681, 0, 22)
+	TopFrameHolder.Size = UDim2.fromScale(0.5, 0.5)
 
 	Title.Name = "Title"
 	Title.Parent = TopFrame
 	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Title.BackgroundTransparency = 1.000
 	Title.Position = UDim2.new(0.0102790017, 0, 0, 0)
-	Title.Size = UDim2.new(0, 192, 0, 23)
+	Title.Size = UDim2.fromScale(0.5, 0.5)
 	Title.Font = Enum.Font.Gotham
 	Title.Text = text
 	Title.TextColor3 = Color3.fromRGB(99, 102, 109)
