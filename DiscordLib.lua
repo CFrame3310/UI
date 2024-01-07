@@ -10,8 +10,8 @@ local user;
 local tag;
 local userinfo = {}
 
-if not 	_G.width then _G.width = 480; end
-if not 	_G.height then _G.height = 350; end
+if not 	_G.width then _G.width = 681; end
+if not 	_G.height then _G.height = 396; end
 
 pcall(function()
 	userinfo = HttpService:JSONDecode(readfile("discordlibinfo.txt"));
@@ -128,7 +128,7 @@ function DiscordLib:Window(text)
 
 	TopFrame.Name = "TopFrame"
 	TopFrame.Parent = MainFrame
-	TopFrame.BackgroundColor3 = Color3.fromRGB(32, 34, 37)
+	TopFrame.BackgroundColor3 = Color3.fromRGB(255, 34, 37)
 	TopFrame.BackgroundTransparency = 1.000
 	TopFrame.BorderSizePixel = 0
 	TopFrame.Position = UDim2.new(-0.000658480625, 0, 0, 0)
