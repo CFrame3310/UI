@@ -5,13 +5,10 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
-local pfp;
-local user;
-local tag;
+local pfp
+local user
+local tag
 local userinfo = {}
-
-if not 	_G.width then _G.width = 681; end
-if not 	_G.height then _G.height = 396; end
 
 pcall(function()
 	userinfo = HttpService:JSONDecode(readfile("discordlibinfo.txt"));
@@ -83,6 +80,7 @@ local function MakeDraggable(topbarobject, object)
 		end
 	)
 end
+
 local Discord = Instance.new("ScreenGui")
 Discord.Name = "Discord"
 Discord.Parent = game.CoreGui
@@ -124,15 +122,15 @@ function DiscordLib:Window(text)
 	MainFrame.BorderSizePixel = 0
 	MainFrame.ClipsDescendants = true
 	MainFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-	MainFrame.Size = UDim2.fromOffset(_G.width, _G.height)
+	MainFrame.Size = UDim2.new(0, 532, 0, 289)
 
 	TopFrame.Name = "TopFrame"
 	TopFrame.Parent = MainFrame
-	TopFrame.BackgroundColor3 = Color3.fromRGB(255, 34, 37)
-	TopFrame.BackgroundTransparency = 1
+	TopFrame.BackgroundColor3 = Color3.fromRGB(32, 34, 37)
+	TopFrame.BackgroundTransparency = 1.000
 	TopFrame.BorderSizePixel = 0
 	TopFrame.Position = UDim2.new(-0.000658480625, 0, 0, 0)
-	TopFrame.Size = UDim2.fromScale(0.5, 0.5)
+	TopFrame.Size = UDim2.new(0, 532, 0, 22)
 	
 	TopFrameHolder.Name = "TopFrameHolder"
 	TopFrameHolder.Parent = TopFrame
@@ -140,14 +138,14 @@ function DiscordLib:Window(text)
 	TopFrameHolder.BackgroundTransparency = 1.000
 	TopFrameHolder.BorderSizePixel = 0
 	TopFrameHolder.Position = UDim2.new(-0.000658480625, 0, 0, 0)
-	TopFrameHolder.Size = UDim2.fromScale(0.5, 0.5)
+	TopFrameHolder.Size = UDim2.new(0, 532, 0, 22)
 
 	Title.Name = "Title"
 	Title.Parent = TopFrame
 	Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	Title.BackgroundTransparency = 1.000
 	Title.Position = UDim2.new(0.0102790017, 0, 0, 0)
-	Title.Size = UDim2.fromScale(0, 0)
+	Title.Size = UDim2.new(0, 192, 0, 23)
 	Title.Font = Enum.Font.Gotham
 	Title.Text = text
 	Title.TextColor3 = Color3.fromRGB(99, 102, 109)
@@ -268,7 +266,7 @@ function DiscordLib:Window(text)
 	ServersHoldFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 	ServersHoldFrame.BackgroundTransparency = 1.000
 	ServersHoldFrame.BorderColor3 = Color3.fromRGB(27, 42, 53)
-	ServersHoldFrame.Size = UDim2.new(0, 71, 0, 396)
+	ServersHoldFrame.Size = UDim2.new(0, 71, 0, 289)
 
 	ServersHold.Name = "ServersHold"
 	ServersHold.Parent = ServersHoldFrame
@@ -324,7 +322,7 @@ function DiscordLib:Window(text)
 		function()
 			if minimized == false then
 				MainFrame:TweenSize(
-					UDim2.new(0, 681, 0, 22),
+					UDim2.new(0, 532, 0, 22),
 					Enum.EasingDirection.Out,
 					Enum.EasingStyle.Quart,
 					.3,
@@ -332,7 +330,7 @@ function DiscordLib:Window(text)
 				)
 			else
 				MainFrame:TweenSize(
-					UDim2.new(0, 681, 0, 396),
+					UDim2.new(0, 532, 0, 289),
 					Enum.EasingDirection.Out,
 					Enum.EasingStyle.Quart,
 					.3,
@@ -409,7 +407,7 @@ function DiscordLib:Window(text)
 	SettingsFrame.Parent = MainFrame
 	SettingsFrame.BackgroundColor3 = Color3.fromRGB(47, 49, 54)
 	SettingsFrame.BackgroundTransparency = 1.000
-	SettingsFrame.Size = UDim2.new(0, 681, 0, 396)
+	SettingsFrame.Size = UDim2.new(0, 532, 0, 289)
 	SettingsFrame.Visible = false
 
 	Settings.Name = "Settings"
@@ -417,7 +415,7 @@ function DiscordLib:Window(text)
 	Settings.BackgroundColor3 = Color3.fromRGB(54, 57, 63)
 	Settings.BorderSizePixel = 0
 	Settings.Position = UDim2.new(0, 0, 0.0530303046, 0)
-	Settings.Size = UDim2.new(0, 681, 0, 375)
+	Settings.Size = UDim2.new(0, 532, 0, 375)
 
 	SettingsHolder.Name = "SettingsHolder"
 	SettingsHolder.Parent = Settings
@@ -1148,7 +1146,7 @@ function DiscordLib:Window(text)
 			TopFrameHolder.Visible = false
 			ServersHoldFrame.Visible = false
 			SettingsFrame.Visible = true
-			SettingsHolder:TweenSize(UDim2.new(0, 681, 0, 375), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
+			SettingsHolder:TweenSize(UDim2.new(0, 532, 0, 375), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, .3, true)
 			Settings.BackgroundTransparency = 1
 			TweenService:Create(
 				Settings,
@@ -1538,7 +1536,7 @@ function DiscordLib:Window(text)
 		NotificationHolderMain.BackgroundTransparency = 1
 		NotificationHolderMain.BorderSizePixel = 0
 		NotificationHolderMain.Position = UDim2.new(0, 0, 0.0560000017, 0)
-		NotificationHolderMain.Size = UDim2.new(0, 681, 0, 374)
+		NotificationHolderMain.Size = UDim2.new(0, 532, 0, 374)
 		NotificationHolderMain.AutoButtonColor = false
 		NotificationHolderMain.Font = Enum.Font.SourceSans
 		NotificationHolderMain.Text = ""
@@ -3249,5 +3247,4 @@ function DiscordLib:Window(text)
 	end
 	return ServerHold
 end
-print('Loaded Discord UI.')
 return DiscordLib
