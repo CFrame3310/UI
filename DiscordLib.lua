@@ -5,13 +5,13 @@ local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
-local pfp
-local user
-local tag
+local pfp;
+local user;
+local tag;
 local userinfo = {}
 
-if not 	_G.width then _G.width = 420; end
-if not 	_G.height then _G.height = 340; end
+if not 	_G.width then _G.width = 300; end
+if not 	_G.height then _G.height = 200; end
 
 pcall(function()
 	userinfo = HttpService:JSONDecode(readfile("discordlibinfo.txt"));
