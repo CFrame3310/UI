@@ -486,8 +486,8 @@ closeButton.MouseButton1Click:Connect(function()
         mainShadow.Visible = false
         windowName.Visible = false
     end
-    TweenService:Create(main, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = Closed and UDim2.new(0, 34,0, 34) or UDim2.new(0, 500,0, 350)}):Play()
-    TweenService:Create(closeButton, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = Closed and UDim2.new(0.025, 0, 0.235, 0) or UDim2.new(0.954, 3, 0.235, 0)}):Play()
+    TweenService:Create(main, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = Closed and UDim2.new(0, 70,0, 34) or UDim2.new(0, 500,0, 350)}):Play()
+    TweenService:Create(closeButton, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = Closed and UDim2.new(0.090, 0, 0.235, 0) or UDim2.new(0.954, 3, 0.235, 0)}):Play()
     if not Closed then
         wait(.125)
         mainShadow.Visible = true
