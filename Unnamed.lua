@@ -351,7 +351,7 @@ local unnamed = Instance.new("ScreenGui")
 unnamed.Name = HttpService:GenerateGUID(true)
 unnamed.ZIndexBehavior = Enum.ZIndexBehavior.Global
 unnamed.Parent = CoreGui
-if getgenv().UI then getgenv().UI:Destroy() end 
+if getgenv().UI then getgenv().UI:Remove() end 
 getgenv().UI = unnamed
 local shadow = Instance.new("ScreenGui")
 shadow.Name = HttpService:GenerateGUID(true)
