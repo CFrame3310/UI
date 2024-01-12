@@ -157,8 +157,9 @@ local notifications = Instance.new("ScreenGui")
 notifications.Name = HttpService:GenerateGUID(true)
 notifications.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 notifications.Parent = CoreGui
-if not getgenv().UI2 then getgenv().UI2 = notifications end 
-getgenv().UI2:Remove()
+if not getgenv().UI then getgenv().UI = notifications end 
+getgenv().UI:Remove()
+
 local notificationHolder = Instance.new("Frame")
 notificationHolder.Name = "NotificationHolder"
 notificationHolder.AnchorPoint = Vector2.new(0, 0.5)
@@ -349,16 +350,19 @@ end
 local window = {}
 
 local unnamed = Instance.new("ScreenGui")
-unnamed.Name = 'abc'--HttpService:GenerateGUID(true)
+unnamed.Name = HttpService:GenerateGUID(true)
 unnamed.ZIndexBehavior = Enum.ZIndexBehavior.Global
 unnamed.Parent = CoreGui
-if getgenv().UI then getgenv().UI:Remove() end 
-getgenv().UI = unnamed
+if getgenv().UI2 then getgenv().UI2:Remove() end 
+getgenv().UI2 = unnamed
+
 local shadow = Instance.new("ScreenGui")
 shadow.Name = HttpService:GenerateGUID(true)
 shadow.DisplayOrder = -1
 shadow.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 shadow.Parent = CoreGui
+if getgenv().UI3 then getgenv().UI3:Remove() end 
+getgenv().UI3 = shadow
 
 local mainShadow = Instance.new("ImageLabel")
 mainShadow.Name = "MainShadow"
