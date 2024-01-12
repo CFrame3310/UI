@@ -475,10 +475,26 @@ closeButton.MouseLeave:Connect(function()
     TweenService:Create(closeButton, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {ImageColor3 = Color3.fromRGB(255, 255, 255)}):Play()
 end)
 
+local Closed = false
+
 closeButton.MouseButton1Click:Connect(function()
-    unnamed:Destroy()
-    shadow:Destroy()
-    notifications:Destroy()
+    Closed = not Closed
+   
+    if Closed then
+        topbar.TopbarLine.Visible = false
+        mainShadow.Visible = false
+    end
+    TweenService:Create(main, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = Minimized and UDim2.new(0, 34,0, 34) or UDim2.new(0, 50,0, 350)}):Play()
+    if not Closed then
+        wait(.125)
+        mainShadow.Visible = true
+        topbar.TopbarLine.Visible = true
+    end
+    for _,v in next, main:GetChildren() do
+        if v.Name ~= "Topbar" and v.ClassName == "Frame" or v.ClassName == "ScrollingFrame" then
+            v.Visible = not Closed
+        end
+    end
 end)
 
 local minimizeButton = Instance.new("ImageButton")
