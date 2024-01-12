@@ -157,7 +157,8 @@ local notifications = Instance.new("ScreenGui")
 notifications.Name = HttpService:GenerateGUID(true)
 notifications.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 notifications.Parent = CoreGui
-
+if not getgenv().UI2 then getgenv().UI2 = notifications end 
+getgenv().UI2:Remove()
 local notificationHolder = Instance.new("Frame")
 notificationHolder.Name = "NotificationHolder"
 notificationHolder.AnchorPoint = Vector2.new(0, 0.5)
