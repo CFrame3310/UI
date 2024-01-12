@@ -484,6 +484,7 @@ closeButton.MouseButton1Click:Connect(function()
     if Closed then
         topbar.TopbarLine.Visible = false
         mainShadow.Visible = false
+        windowName.Visible = false
     end
     TweenService:Create(main, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = Closed and UDim2.new(0, 200,0, 34) or UDim2.new(0, 500,0, 350)}):Play()
     TweenService:Create(closeButton, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Position = Closed and UDim2.new(0.739, 0, 0.235, 0) or UDim2.new(0.954, 3, 0.235, 0)}):Play()
@@ -491,6 +492,7 @@ closeButton.MouseButton1Click:Connect(function()
         wait(.125)
         mainShadow.Visible = true
         topbar.TopbarLine.Visible = true
+        windowName.Visible = true
     end
     for _,v in next, main:GetChildren() do
         if v.Name ~= "Topbar" and v.ClassName == "Frame" or v.ClassName == "ScrollingFrame" then
