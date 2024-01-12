@@ -484,7 +484,7 @@ closeButton.MouseButton1Click:Connect(function()
         topbar.TopbarLine.Visible = false
         mainShadow.Visible = false
     end
-    TweenService:Create(main, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = Minimized and UDim2.new(0, 200,0, 34) or UDim2.new(0, 500,0, 350)}):Play()
+    TweenService:Create(main, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Size = Closed and UDim2.new(0, 200,0, 34) or UDim2.new(0, 500,0, 350)}):Play()
     if not Closed then
         wait(.125)
         mainShadow.Visible = true
