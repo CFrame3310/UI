@@ -1223,7 +1223,6 @@ sliderFrame.InputEnded:Connect(
         end
     end)
 game:GetService("UserInputService").InputChanged:Connect(function(input)
-    print(input.UserInputType)
     if dragging and input.UserInputType == Enum.UserInputType.MouseMovement or dragging and input.UserInputType == Enum.UserInputType.Touch then
         move(input)
     end
