@@ -1164,65 +1164,49 @@ end
 local dragging = false
 dragButton.InputBegan:Connect(
 	function(input)
-        print(input.UserInputType)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			print('Button true')
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
 		end
 	end)
 dragButton.InputEnded:Connect(
 	function(input)
-        print(input.UserInputType)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			print('Button false')
+		if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = false
 		end
 	end)
 dragIcon.InputBegan:Connect(
     function(input)
-        print(input.UserInputType)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            print('Icon true')
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
         end
     end)
 dragIcon.InputEnded:Connect(
     function(input)
-        print(input.UserInputType)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            print('Icon false')
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = false
         end
     end)
 sliderInner.InputBegan:Connect(
     function(input)
-        print(input.UserInputType)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            print('Inner true')
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
         end
     end)
 sliderInner.InputEnded:Connect(
     function(input)
-        print(input.UserInputType)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            print('Inner false')
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = false
         end
     end)
 sliderOuter.InputBegan:Connect(
     function(input)
-        print(input.UserInputType)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            print('Outer true')
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
         end
     end)
 sliderOuter.InputEnded:Connect(
     function(input)
-        print(input.UserInputType)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            print('Outer false')
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = false
         end
     end)
