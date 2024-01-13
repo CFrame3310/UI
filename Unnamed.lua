@@ -1061,10 +1061,10 @@ sliderValueText.Text = tostring(Info.Default)..Info.Postfix
 sliderValueText.TextColor3 = Theme.ItemText
 sliderValueText.TextSize = 12
 sliderValueText.TextXAlignment = Enum.TextXAlignment.Right
-sliderValueText.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-sliderValueText.BackgroundTransparency = 0
-sliderValueText.Position = UDim2.new(0.45, 0, 0, 0)
-sliderValueText.Size = UDim2.new(0, 70, 0, 24)
+sliderValueText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+sliderValueText.BackgroundTransparency = 1
+sliderValueText.Position = UDim2.new(0.8, 0, 0, 0)
+sliderValueText.Size = UDim2.new(0, 30, 0, 24)
 sliderValueText.Parent = sliderFrame
 
 local sliderOuter = Instance.new("Frame")
