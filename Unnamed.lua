@@ -1229,6 +1229,7 @@ game:GetService("UserInputService").InputChanged:Connect(function(input)
         move(input)
     end
 end)
+
 sliderValueText.FocusLost:Connect(function()
     if not tonumber(sliderValueText.Text) then sliderValueText.Text = 0 end
     local Result = 1 - ((Info.Maximum - tonumber(sliderValueText.Text) or 0) / (Info.Maximum - Info.Minimum))
