@@ -1165,24 +1165,28 @@ local dragging = false
 dragButton.InputBegan:Connect(
 	function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			dragging = true
+			print('Button true')
+            dragging = true
 		end
 	end)
 dragButton.InputEnded:Connect(
 	function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
-			dragging = false
+			print('Button false')
+            dragging = false
 		end
 	end)
 dragIcon.InputBegan:Connect(
     function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            print('Icon true')
             dragging = true
         end
     end)
 dragIcon.InputEnded:Connect(
     function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            print('Icon false')
             dragging = false
         end
     end)
