@@ -1006,20 +1006,20 @@ end
 function sectiontable:Slider(Info)
 Info.Text = Info.Text or "Slider"
 Info.Flag = Info.Flag or nil
-Info.Default = Info.Default or 5
+Info.Default = Info.Default or 0
 Info.Minimum = Info.Minimum or 0
 Info.Maximum = Info.Maximum or 10
 Info.Postfix = Info.Postfix or ""
 Info.Callback = Info.Callback or function() end
 
-if Info.Minimum > Info.Maximum then
+--[[ if Info.Minimum > Info.Maximum then
     local ValueBefore = Info.Minimum
     Info.Minimum, Info.Maximum = Info.Maximum, ValueBefore
-    end
+end
     
-    Info.Default = math.clamp(Info.Default, Info.Minimum, Info.Maximum)
-    local DefaultScale = (Info.Default - Info.Minimum) / (Info.Maximum - Info.Minimum)
-
+Info.Default = math.clamp(Info.Default, Info.Minimum, Info.Maximum)
+local DefaultScale = (Info.Default - Info.Minimum) / (Info.Maximum - Info.Minimum)
+ ]]
 local slider = Instance.new("Frame")
 slider.Name = "Slider"
 slider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -1054,7 +1054,7 @@ sliderUIStroke.Name = "sliderUIStroke"
 sliderUIStroke.Color = Theme.ItemUIStroke
 sliderUIStroke.Parent = sliderFrame
 
-local sliderValueText = Instance.new("TextLabel")
+local sliderValueText = Instance.new("TextBox")
 sliderValueText.Name = "sliderValueText"
 sliderValueText.Font = Enum.Font.GothamBold
 sliderValueText.Text = tostring(Info.Default)..Info.Postfix
@@ -1084,7 +1084,7 @@ local sliderInner = Instance.new("Frame")
 sliderInner.Name = "sliderInner"
 sliderInner.BackgroundColor3 = Theme.SliderInner
 sliderInner.BorderSizePixel = 0
-sliderInner.Size = UDim2.new(DefaultScale, 0, 0, 5)
+sliderInner.Size = UDim2.new((1 - ((Info.Maximum - tonumber(sliderValueText.Text)) / (Info.Maximum - Info.Minimum)) or 0), 0, 0, 5)
 sliderInner.Parent = sliderOuter
 
 local sliderInnerUICorner = Instance.new("UICorner")
@@ -1099,7 +1099,7 @@ dragIcon.ImageColor3 = Theme.ItemText
 dragIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 dragIcon.BackgroundTransparency = 1
 dragIcon.BorderSizePixel = 0
-dragIcon.Position = UDim2.new(DefaultScale, -5, 0, -2)
+dragIcon.Position = UDim2.new((1 - ((Info.Maximum - tonumber(sliderValueText.Text)) / (Info.Maximum - Info.Minimum)) or 0), -5, 0, -2)
 dragIcon.Size = UDim2.new(0, 9, 0, 9)
 dragIcon.Parent = sliderOuter
 
@@ -1136,6 +1136,55 @@ if Info.Flag then
     library.Flags[Info.Flag] = Info.Default
 end
 
+local function move(input)
+    local pos =
+        UDim2.new(
+            math.clamp((input.Position.X - ValueFrame.AbsolutePosition.X) / ValueFrame.AbsoluteSize.X, 0, 1),
+            0,
+            0.6,
+            0
+        )
+    local pos1 =
+        UDim2.new(
+            math.clamp((input.Position.X - ValueFrame.AbsolutePosition.X) / ValueFrame.AbsoluteSize.X, 0, 1),
+            0,
+            0,
+            4
+        )
+    sliderInner:TweenSize(pos1, "Out", "Sine", 0.2, true)
+    dragIcon:TweenPosition(pos, "Out", "Sine", 0.2, true)
+    local value = math.floor(((pos.X.Scale * max) / max) * (max - min) + min)
+    sliderValueText.Text = tostring(value)
+    callback(value)
+end
+
+local dragging = false
+dragButton.InputBegan:Connect(
+	function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = true
+		end
+	end)
+dragButton.InputEnded:Connect(
+	function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = false
+		end
+	end)
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+            move(input)
+            warn('Input | '..tostring(input.Position.X))
+        end
+    end)
+sliderValueText.FocusLost:Connect(function()
+    local Result = 1 - ((Info.Maximum - tonumber(sliderValueText.Text)) / (Info.Maximum - Info.Minimum))
+    sliderInner:TweenSize(UDim2.new(Result, 0, 0, 4), "Out", "Sine", 0.2, true)
+    dragIcon:TweenPosition(UDim2.new(Result, 0,0.6, 0) , "Out", "Sine", 0.2, true)
+    sliderValueText.Text = tostring(sliderValueText.Text) -- and math.floor( (CustomValue.Text / max) * (max - min) + min) 
+    pcall(Info.Callback, sliderValueText.Text)
+end)
+--[[ 
 local MinSize = 0
 local MaxSize = 1
 
@@ -1164,7 +1213,7 @@ dragButton.MouseButton1Down:Connect(function() -- Skidded from material ui hehe,
 			MouseKill:Disconnect()
 		end
 	end)
-end)
+end) ]]
 end
 
 function sectiontable:Input(Info)
