@@ -1209,7 +1209,7 @@ sliderValueText.FocusLost:Connect(function()
     sliderInner:TweenSize(UDim2.new(Result, 0, 0, 4), "Out", "Sine", 0.2, true)
     dragIcon:TweenPosition(UDim2.new(Result, -5, 0, -2) , "Out", "Sine", 0.2, true)
     sliderValueText.Text = tostring(sliderValueText.Text) -- and math.floor( (CustomValue.Text / max) * (max - min) + min) 
-    task.pcall(Info.Callback, sliderValueText.Text)
+    pcall(Info.Callback, sliderValueText.Text)
 end)
 --[[ 
 local MinSize = 0
