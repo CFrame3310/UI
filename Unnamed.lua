@@ -1131,7 +1131,7 @@ dragButton.MouseButton1Up:Connect(function()
     TweenService:Create(sliderUIStroke, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Color = Theme.ItemUIStroke}):Play()
 end)
 
-task.spawn(Info.Callback, Info.Default)
+task.pcall(Info.Callback, Info.Default)
 if Info.Flag then
     library.Flags[Info.Flag] = Info.Default
 end
@@ -1155,7 +1155,10 @@ local function move(input)
     dragIcon:TweenPosition(pos, "Out", "Sine", 0.2, true)
     local value = math.floor(((pos.X.Scale * max) / max) * (max - min) + min)
     sliderValueText.Text = tostring(value)
-    callback(value)
+    if Info.Flag then
+        library.Flags[Info.Flag] = value
+    end
+    task.pcall(Info.Callback, value)
 end
 
 local dragging = false
@@ -1206,7 +1209,7 @@ sliderValueText.FocusLost:Connect(function()
     sliderInner:TweenSize(UDim2.new(Result, 0, 0, 4), "Out", "Sine", 0.2, true)
     dragIcon:TweenPosition(UDim2.new(Result, -5, 0, -2) , "Out", "Sine", 0.2, true)
     sliderValueText.Text = tostring(sliderValueText.Text) -- and math.floor( (CustomValue.Text / max) * (max - min) + min) 
-    pcall(Info.Callback, sliderValueText.Text)
+    task.pcall(Info.Callback, sliderValueText.Text)
 end)
 --[[ 
 local MinSize = 0
@@ -1220,10 +1223,10 @@ dragButton.MouseButton1Down:Connect(function() -- Skidded from material ui hehe,
 	MouseMove = Mouse.Move:Connect(function()
 		local Px = library:GetXY(sliderOuter)
 		SizeFromScale = (MinSize +  (MaxSize - MinSize)) * Px
-		local Value = math.floor(Info.Minimum + ((Info.Maximum - Info.Minimum) * Px))
+		lweenService:Create(sliderInner, TweenInfo.new(0.09, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Size = UDim2.new(Px,0,0,5)}):Play()
+        local Value = math.floor(Info.Minimum + ((Info.Maximum - Info.Minimum) * Px))
 		SizeFromScale = SizeFromScale - (SizeFromScale % 2)
-		TweenService:Create(sliderInner, TweenInfo.new(0.09, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Size = UDim2.new(Px,0,0,5)}):Play()
-        local iconpos = math.clamp(Px, 0.00981, 0.99141)
+		Tocal iconpos = math.clamp(Px, 0.00981, 0.99141)
         TweenService:Create(dragIcon, TweenInfo.new(0.09, Enum.EasingStyle.Linear, Enum.EasingDirection.Out), {Position = UDim2.new(iconpos,-5,0,-2)}):Play()
 		if Info.Flag then
 		    library.Flags[Info.Flag] = Value
