@@ -1063,8 +1063,8 @@ sliderValueText.TextSize = 12
 sliderValueText.TextXAlignment = Enum.TextXAlignment.Right
 sliderValueText.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 sliderValueText.BackgroundTransparency = 0
-sliderValueText.Position = UDim2.new(0.0234, 0, 0, 0)
-sliderValueText.Size = UDim2.new(0, 90, 0, 24)
+sliderValueText.Position = UDim2.new(0.45, 0, 0, 0)
+sliderValueText.Size = UDim2.new(0, 70, 0, 24)
 sliderValueText.Parent = sliderFrame
 
 local sliderOuter = Instance.new("Frame")
@@ -1212,24 +1212,20 @@ sliderOuter.InputEnded:Connect(
     end)
 sliderFrame.InputBegan:Connect(
     function(input)
-        print(input.UserInputType)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            print('Frame true')
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
         end
     end)
 sliderFrame.InputEnded:Connect(
     function(input)
-        print(input.UserInputType)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            print('Frame false')
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = false
         end
     end)
 game:GetService("UserInputService").InputChanged:Connect(function(input)
-    --print('Dragging')
+    print(input.UserInputType)
     if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-        warn('Input | ',input.Position.X,' | ',Mouse.p)
+        warn('Input | ',input.Position.X)
         move(input)
     end
 end)
