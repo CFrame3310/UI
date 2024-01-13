@@ -1139,14 +1139,14 @@ end
 local function move(input)
     local pos =
         UDim2.new(
-            math.clamp((input.Position.X - ValueFrame.AbsolutePosition.X) / ValueFrame.AbsoluteSize.X, 0, 1),
+            math.clamp((input.Position.X - sliderFrame.AbsolutePosition.X) / sliderFrame.AbsoluteSize.X, 0, 1),
             0,
             0.6,
             0
         )
     local pos1 =
         UDim2.new(
-            math.clamp((input.Position.X - ValueFrame.AbsolutePosition.X) / ValueFrame.AbsoluteSize.X, 0, 1),
+            math.clamp((input.Position.X - sliderFrame.AbsolutePosition.X) / sliderFrame.AbsoluteSize.X, 0, 1),
             0,
             0,
             4
@@ -1171,12 +1171,12 @@ dragButton.InputEnded:Connect(
 			dragging = false
 		end
 	end)
-    game:GetService("UserInputService").InputChanged:Connect(function(input)
-        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-            move(input)
-            warn('Input | '..tostring(input.Position.X))
-        end
-    end)
+game:GetService("UserInputService").InputChanged:Connect(function(input)
+    if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        move(input)
+        warn('Input | '..tostring(input.Position.X))
+    end
+end)
 sliderValueText.FocusLost:Connect(function()
     local Result = 1 - ((Info.Maximum - tonumber(sliderValueText.Text)) / (Info.Maximum - Info.Minimum))
     sliderInner:TweenSize(UDim2.new(Result, 0, 0, 4), "Out", "Sine", 0.2, true)
