@@ -1153,12 +1153,12 @@ local function move(input)
         )
     sliderInner:TweenSize(pos1, "Out", "Sine", 0.2, true)
     dragIcon:TweenPosition(pos, "Out", "Sine", 0.2, true)
-    local value = math.floor(((pos.X.Scale * max) / max) * (max - min) + min)
+    local value = math.floor(((pos.X.Scale * Info.Maximum) / Info.Maximum) * (Info.Maximum - Info.Minimum) + Info.Minimum)
     sliderValueText.Text = tostring(value)
     if Info.Flag then
         library.Flags[Info.Flag] = value
     end
-    task.spawn(Info.Callback, value)
+    pcall(Info.Callback, value)
 end
 
 local dragging = false
@@ -1225,7 +1225,6 @@ sliderFrame.InputEnded:Connect(
 game:GetService("UserInputService").InputChanged:Connect(function(input)
     print(input.UserInputType)
     if dragging and input.UserInputType == Enum.UserInputType.MouseMovement or dragging and input.UserInputType == Enum.UserInputType.Touch then
-        warn('Input | ',input.Position.X)
         move(input)
     end
 end)
