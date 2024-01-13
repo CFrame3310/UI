@@ -1131,7 +1131,7 @@ dragButton.MouseButton1Up:Connect(function()
     TweenService:Create(sliderUIStroke, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Color = Theme.ItemUIStroke}):Play()
 end)
 
-task.pcall(Info.Callback, Info.Default)
+task.spawn(Info.Callback, Info.Default)
 if Info.Flag then
     library.Flags[Info.Flag] = Info.Default
 end
@@ -1158,7 +1158,7 @@ local function move(input)
     if Info.Flag then
         library.Flags[Info.Flag] = value
     end
-    task.pcall(Info.Callback, value)
+    task.spawn(Info.Callback, value)
 end
 
 local dragging = false
