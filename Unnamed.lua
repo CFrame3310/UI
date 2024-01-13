@@ -1140,16 +1140,16 @@ local function move(input)
     local pos =
         UDim2.new(
             math.clamp((input.Position.X - sliderFrame.AbsolutePosition.X) / sliderFrame.AbsoluteSize.X, 0, 1),
+            -5,
             0,
-            0.6,
-            0
+            -2
         )
     local pos1 =
         UDim2.new(
             math.clamp((input.Position.X - sliderFrame.AbsolutePosition.X) / sliderFrame.AbsoluteSize.X, 0, 1),
             0,
             0,
-            4
+            5
         )
     sliderInner:TweenSize(pos1, "Out", "Sine", 0.2, true)
     dragIcon:TweenPosition(pos, "Out", "Sine", 0.2, true)
@@ -1171,16 +1171,39 @@ dragButton.InputEnded:Connect(
 			dragging = false
 		end
 	end)
+dragIcon.InputBegan:Connect(
+    function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+        end
+    end)
+dragIcon.InputEnded:Connect(
+    function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
+sliderInner.InputBegan:Connect(
+    function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = true
+        end
+    end)
+sliderInner.InputEnded:Connect(
+    function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            dragging = false
+        end
+    end)
 game:GetService("UserInputService").InputChanged:Connect(function(input)
     if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-        move(input)
         warn('Input | '..tostring(input.Position.X))
     end
 end)
 sliderValueText.FocusLost:Connect(function()
     local Result = 1 - ((Info.Maximum - tonumber(sliderValueText.Text)) / (Info.Maximum - Info.Minimum))
     sliderInner:TweenSize(UDim2.new(Result, 0, 0, 4), "Out", "Sine", 0.2, true)
-    dragIcon:TweenPosition(UDim2.new(Result, 0,0.6, 0) , "Out", "Sine", 0.2, true)
+    dragIcon:TweenPosition(UDim2.new(Result, -5, 0, -2) , "Out", "Sine", 0.2, true)
     sliderValueText.Text = tostring(sliderValueText.Text) -- and math.floor( (CustomValue.Text / max) * (max - min) + min) 
     pcall(Info.Callback, sliderValueText.Text)
 end)
