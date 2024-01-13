@@ -1189,43 +1189,50 @@ dragIcon.InputEnded:Connect(
 sliderInner.InputBegan:Connect(
     function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            print('Inner true')
             dragging = true
         end
     end)
 sliderInner.InputEnded:Connect(
     function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            print('Inner false')
             dragging = false
         end
     end)
 sliderOuter.InputBegan:Connect(
     function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            print('Outer true')
             dragging = true
         end
     end)
 sliderOuter.InputEnded:Connect(
     function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            print('Outer false')
             dragging = false
         end
     end)
 sliderFrame.InputBegan:Connect(
     function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            print('Frame true')
             dragging = true
         end
     end)
 sliderFrame.InputEnded:Connect(
     function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
+            print('Frame false')
             dragging = false
         end
     end)
 game:GetService("UserInputService").InputChanged:Connect(function(input)
+    print('Dragging')
     if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        warn('Input | ',input.Position.X,' | ',Mouse.p)
         move(input)
-        warn('Input | '..tostring(input.Position.X))
     end
 end)
 sliderValueText.FocusLost:Connect(function()
