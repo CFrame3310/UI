@@ -1197,6 +1197,7 @@ sliderInner.InputEnded:Connect(
     end)
 game:GetService("UserInputService").InputChanged:Connect(function(input)
     if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        move(input)
         warn('Input | '..tostring(input.Position.X))
     end
 end)
