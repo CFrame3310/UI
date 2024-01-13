@@ -1064,7 +1064,7 @@ sliderValueText.TextXAlignment = Enum.TextXAlignment.Right
 sliderValueText.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 sliderValueText.BackgroundTransparency = 0
 sliderValueText.Position = UDim2.new(0.0234, 0, 0, 0)
-sliderValueText.Size = UDim2.new(0, 163, 0, 24)
+sliderValueText.Size = UDim2.new(0, 90, 0, 24)
 sliderValueText.Parent = sliderFrame
 
 local sliderOuter = Instance.new("Frame")
