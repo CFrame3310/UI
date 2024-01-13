@@ -1229,7 +1229,7 @@ game:GetService("UserInputService").InputChanged:Connect(function(input)
 end)
 
 sliderValueText.FocusLost:Connect(function()
-    if not tonumber(sliderValueText.Text) then sliderValueText.Text = 0 end
+    if not tonumber(sliderValueText.Text) then sliderValueText.Text = Info.Default end
     local Result = 1 - ((Info.Maximum - tonumber(sliderValueText.Text) or 0) / (Info.Maximum - Info.Minimum))
     sliderInner:TweenSize(UDim2.new(Result, 0, 0, 4), "Out", "Sine", 0.2, true)
     dragIcon:TweenPosition(UDim2.new(Result, -5, 0, -2) , "Out", "Sine", 0.2, true)
