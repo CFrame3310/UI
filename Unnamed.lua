@@ -1,7 +1,8 @@
 local library = {
     Flags = {},
     SectionsOpened = false,
-    Theme = "Dark"
+    Theme = "Dark",
+    MultiDrop = {}
 }
 
 library.flags = library.Flags
@@ -1313,13 +1314,14 @@ function sectiontable:Dropdown(Info)
 Info.Text = Info.Text or "Dropdown"
 Info.Flag = Info.Flag or nil
 Info.List = Info.List or {}
+Info.Default = Info.Default or nil
 Info.MultiChoice = Info.MultiChoice or nil
 Info.Callback = Idnfo.Callback or function() en
 Info.ChangeTextOnPick = Info.ChangeTextOnPick or false
 
 if Info.MultiChoice then
-    Info.Default = typeof(Info.Default) == 'table' and Info.Default or {}
-    library.Flags['Dropdown '..Info.Text] = {}
+    Info.Default = type(Info.Default) ~= 'table' and {}
+    library.MultiDrop[Info.Text] = {}
 end
 
 local insidedropdown = {}
@@ -1415,12 +1417,12 @@ dropdownTextButton.MouseButton1Up:Connect(function()
 end)
 
 if Info.Default then
-    task.spawn(Info.Callback,Info.MultiChoice and library.Flags['Dropdown '..Info.Text] or dropdownElementText.Text)
+    task.spawn(Info.Callback,Info.Default)
     if Info.Flag then
-        library.Flags[Info.MultiChoice and 'Dropdown '..Info.Text or Info.Flag] = Info.MultiChoice and library.Flags['Dropdown '..Info.Text] or dropdownElementText.Text
+        library.Flags[Info.Flag] = Info.Default
     end
     if Info.ChangeTextOnPick then
-        dropdownText.Text = Info.MultiChoice and table.concat(library.Flags['Dropdown '..Info.Text], ", ") or dropdownElementText.Text
+        dropdownText.Text = Info.Default
     end
 end
 
@@ -1482,20 +1484,21 @@ dropdownElement.MouseLeave:Connect(function()
 end)
 
 dropdownElementButton.MouseButton1Click:Connect(function()
-    task.spawn(Info.Callback,Info.MultiChoice and library.Flags['Dropdown '..Info.Text] or dropdownElementText.Text)
+    
     if Info.MultiChoice then
-        if not table.find(library.Flags['Dropdown '..Info.Text],dropdownElementText.Text) then
-            table.insert(library.Flags['Dropdown '..Info.Text],dropdownElementText.Text)
+        if not table.find(library.MultiDrop[Info.Text],dropdownElementText.Text) then
+            table.insert(library.MultiDrop[Info.Text],dropdownElementText.Text)
         else
-            table.remove(library.Flags['Dropdown '..Info.Text],getindex(dropdownElementText.Text))
-        end
+            table.remove(library.MultiDrop[Info.Text],getindex(dropdownElementText.Text))
+        end        
     end
-
+    
+    task.spawn(Info.Callback,Info.MultiChoice and MultiDrop[Info.Text] or dropdownElementText.Text)
     if Info.Flag then
-        library.Flags[Info.MultiChoice and 'Dropdown '..Info.Text or Info.Flag] = Info.MultiChoice and library.Flags['Dropdown '..Info.Text] or dropdownElementText.Text
+        library.Flags[Info.Flag] = Info.MultiChoice and library.MultiDrop[Info.Text] or dropdownElementText.Text
     end
     if Info.ChangeTextOnPick then
-        dropdownText.Text = Info.MultiChoice and table.concat(library.Flags['Dropdown '..Info.Text], ", ") or dropdownElementText.Text
+        dropdownText.Text = Info.MultiChoice and table.concat(library.MultiDrop[Info.Text], ", ") or dropdownElementText.Text
     end
 
     TweenService:Create(dropdownFrame, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {BackgroundColor3 = Theme.ItemFrame}):Play()
