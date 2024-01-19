@@ -1483,7 +1483,6 @@ dropdownElement.MouseLeave:Connect(function()
 end)
 
 dropdownElementButton.MouseButton1Click:Connect(function()
-    
     if Info.MultiChoice then
         if not table.find(library.MultiDrop[Info.Text],dropdownElementText.Text) then
             table.insert(library.MultiDrop[Info.Text],dropdownElementText.Text)
