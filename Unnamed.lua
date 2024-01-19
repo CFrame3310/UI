@@ -1426,7 +1426,6 @@ if Info.Default then
     end
 end
 
-
 local DropdownY = 0
 local DropdownOpened = false
 
