@@ -1491,7 +1491,7 @@ dropdownElementButton.MouseButton1Click:Connect(function()
         end 
     end
 
-    task.spawn(Info.Callback,Info.MultiChoice and MultiDrop[Info.Text] or dropdownElementText.Text)
+    task.spawn(Info.Callback,Info.MultiChoice and library.MultiDrop[Info.Text] or dropdownElementText.Text)
     if Info.Flag then
         library.Flags[Info.Flag] = Info.MultiChoice and library.MultiDrop[Info.Text] or dropdownElementText.Text
     end
