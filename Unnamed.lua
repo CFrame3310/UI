@@ -1498,7 +1498,7 @@ dropdownElementButton.MouseButton1Click:Connect(function()
             wait()
             TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.Highlight}):Play()
         else
-            table.remove(library.MultiDrop[Info.Text],getindex(dropdownElementText.Text),library.MultiDrop[Info.Text])
+            table.remove(library.MultiDrop[Info.Text],getindex(dropdownElementText.Text,library.MultiDrop[Info.Text]))
             wait()
             TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.ItemText}):Play()
         end 
