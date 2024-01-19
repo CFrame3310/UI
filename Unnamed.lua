@@ -1316,7 +1316,7 @@ Info.Flag = Info.Flag or nil
 Info.List = Info.List or {}
 Info.Default = Info.Default or nil
 Info.MultiChoice = Info.MultiChoice or nil
-Info.Callback = Idnfo.Callback or function() en
+Info.Callback = Idnfo.Callback or function() end
 Info.ChangeTextOnPick = Info.ChangeTextOnPick or false
 
 if Info.MultiChoice then
@@ -1490,9 +1490,9 @@ dropdownElementButton.MouseButton1Click:Connect(function()
             table.insert(library.MultiDrop[Info.Text],dropdownElementText.Text)
         else
             table.remove(library.MultiDrop[Info.Text],getindex(dropdownElementText.Text))
-        end        
+        end 
     end
-    
+
     task.spawn(Info.Callback,Info.MultiChoice and MultiDrop[Info.Text] or dropdownElementText.Text)
     if Info.Flag then
         library.Flags[Info.Flag] = Info.MultiChoice and library.MultiDrop[Info.Text] or dropdownElementText.Text
