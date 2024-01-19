@@ -41,7 +41,8 @@ local Themes = {
         ToggleInnerEnabled = Color3.fromRGB(80, 201, 206),
         ContainerHolder = Color3.fromRGB(26, 26, 31),
         HighlightUIStroke = Color3.fromRGB(79, 79, 86),
-        Highlight = Color3.fromRGB(80, 201, 206)
+        Highlight = Color3.fromRGB(80, 201, 206),
+        Highlight2 = Color3.fromRGB(29, 123, 186)
     },
     ["Tokyo Night"] = {
         Topbar = Color3.fromRGB(39, 40, 57),
@@ -1487,6 +1488,7 @@ end)
 
 dropdownElement.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        if dropdownElementText.TextColor3 == Theme.Highlight2 then return end
         TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.ItemText}):Play()
     end
 end)
@@ -1496,7 +1498,7 @@ dropdownElementButton.MouseButton1Click:Connect(function()
         if not table.find(library.MultiDrop[Info.Text],dropdownElementText.Text) then
             table.insert(library.MultiDrop[Info.Text],dropdownElementText.Text)
             wait()
-            TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.Highlight}):Play()
+            TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.Highlight2}):Play()
         else
             table.remove(library.MultiDrop[Info.Text],getindex(dropdownElementText.Text,library.MultiDrop[Info.Text]))
             wait()
