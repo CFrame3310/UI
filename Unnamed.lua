@@ -1488,8 +1488,9 @@ end)
 
 dropdownElement.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        if dropdownElementText.TextColor3 == Theme.Highlight2 then return end
-        TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.ItemText}):Play()
+        if dropdownElementText.TextColor3 ~= Theme.Highlight2 then
+            TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.ItemText}):Play()
+        end
     end
 end)
 
