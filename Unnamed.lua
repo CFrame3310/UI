@@ -3,6 +3,7 @@ local library = {
     SectionsOpened = false,
     Theme = "Dark"
 }
+local ItemList = {}
 library.flags = library.Flags
 library.theme = library.Theme
 
@@ -400,6 +401,14 @@ local dragging
 local dragInput
 local dragStart
 local startPos
+
+local function getindex(value)
+    for i = 1 , #Letter do
+        if Letter[i] == value then
+            return i    
+        end
+    end
+end
 
 local function update(input)
     local delta = input.Position - dragStart
@@ -1305,6 +1314,7 @@ Info.Text = Info.Text or "Dropdown"
 Info.Flag = Info.Flag or nil
 Info.Default = Info.Default or nil
 Info.List = Info.List or {}
+Info.MultiChoice = Info.MultiChoice or nil
 Info.Callback = Info.Callback or function() end
 Info.ChangeTextOnPick = Info.ChangeTextOnPick or false
 
@@ -1468,14 +1478,29 @@ dropdownElement.MouseLeave:Connect(function()
 end)
 
 dropdownElementButton.MouseButton1Click:Connect(function()
-    task.spawn(Info.Callback, dropdownElementText.Text)
-    if Info.Flag then
-        library.Flags[Info.Flag] = dropdownElementText.Text
+    if Info.MultiChoice then
+        if not table.find(ItemList,dropdownElementText.Text) then
+            table.insert(ItemList,dropdownElementText.Text)
+        else
+            table.remove(ItemList,getindex(dropdownElementText.Text))
+        end
+        task.spawn(Info.Callback,ItemList)
+        if Info.Flag then
+            library.Flags[Info.Flag] = ItemList
+        end
+        if Info.ChangeTextOnPick then
+            dropdownText.Text = table.concat(ItemList, ", ")
+        end
+    else
+        task.spawn(Info.Callback, dropdownElementText.Text)
+        if Info.Flag then
+            library.Flags[Info.Flag] = dropdownElementText.Text
+        end
+        if Info.ChangeTextOnPick then
+            dropdownText.Text = dropdownElementText.Text
+        end
     end
-    if Info.ChangeTextOnPick then
-        dropdownText.Text = dropdownElementText.Text
-    end
-    
+
     TweenService:Create(dropdownFrame, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {BackgroundColor3 = Theme.ItemFrame}):Play()
     TweenService:Create(dropdownUIStroke, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {Color = Theme.ItemUIStroke}):Play()
 
