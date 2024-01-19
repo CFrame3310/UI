@@ -1316,7 +1316,7 @@ Info.Flag = Info.Flag or nil
 Info.List = Info.List or {}
 Info.Default = Info.Default or nil
 Info.MultiChoice = Info.MultiChoice or nil
-Info.Callback = Idnfo.Callback or function() end
+Info.Callback = Info.Callback or function() end
 Info.ChangeTextOnPick = Info.ChangeTextOnPick or false
 
 if Info.MultiChoice then
