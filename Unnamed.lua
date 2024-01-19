@@ -403,9 +403,9 @@ local dragInput
 local dragStart
 local startPos
 
-local function getindex(value)
-    for i = 1 , #Letter do
-        if Letter[i] == value then
+local function getindex(value,tabl)
+    for i = 1 , #tabl do
+        if tabl[i] == value then
             return i    
         end
     end
@@ -1495,9 +1495,11 @@ dropdownElementButton.MouseButton1Click:Connect(function()
     if Info.MultiChoice then
         if not table.find(library.MultiDrop[Info.Text],dropdownElementText.Text) then
             table.insert(library.MultiDrop[Info.Text],dropdownElementText.Text)
+            wait()
             TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.Highlight}):Play()
         else
-            table.remove(library.MultiDrop[Info.Text],getindex(dropdownElementText.Text))
+            table.remove(library.MultiDrop[Info.Text],getindex(dropdownElementText.Text),library.MultiDrop[Info.Text])
+            wait()
             TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.ItemText}):Play()
         end 
     end
