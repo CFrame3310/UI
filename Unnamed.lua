@@ -412,6 +412,15 @@ local function getindex(value,tabl)
     end
 end
 
+local function concat(tabl,separator)
+    local text = ''
+    for i = 1,#tabl do
+        text = i == #tabl and text..tostring(tabl[i]) or text..tostring(tabl[i])..separator
+        task.wait()
+    end
+    return text
+end
+
 local function update(input)
     local delta = input.Position - dragStart
     main.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
@@ -1321,7 +1330,7 @@ Info.Callback = Info.Callback or function() end
 Info.ChangeTextOnPick = Info.ChangeTextOnPick or false
 
 if Info.MultiChoice then
-    Info.Default = type(Info.Default) ~= 'table' and {}
+    Info.Default = Info.Default or {}
     library.MultiDrop[Info.Text] = {}
 end
 
@@ -1428,7 +1437,7 @@ if Info.Default then
         library.Flags[Info.Flag] = Info.Default
     end
     if Info.ChangeTextOnPick then
-        dropdownText.Text = Info.Default
+        dropdownText.Text = Info.MultiChoice and concat(Info.Default, ", ") or Info.Default
     end
 end
 
@@ -1512,7 +1521,7 @@ dropdownElementButton.MouseButton1Click:Connect(function()
         library.Flags[Info.Flag] = Info.MultiChoice and library.MultiDrop[Info.Text] or dropdownElementText.Text
     end
     if Info.ChangeTextOnPick then
-        dropdownText.Text = Info.MultiChoice and table.concat(library.MultiDrop[Info.Text], ", ") or dropdownElementText.Text
+        dropdownText.Text = Info.MultiChoice and concat(library.MultiDrop[Info.Text], ", ") or dropdownElementText.Text
     end
 
     TweenService:Create(dropdownFrame, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {BackgroundColor3 = Theme.ItemFrame}):Play()
