@@ -1518,7 +1518,7 @@ dropdownElementButton.MouseButton1Click:Connect(function()
         library.Flags[Info.Flag] = Info.MultiChoice and Selected_Options or dropdownElementText.Text
     end
     if Info.ChangeTextOnPick then
-        dropdownText.Text = Info.MultiChoice and concat(Selected_Options,',') or dropdownElementText.Text
+        dropdownText.Text = Info.MultiChoice and table.concat(Selected_Options,',') or dropdownElementText.Text
     end
 
     TweenService:Create(dropdownFrame, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {BackgroundColor3 = Theme.ItemFrame}):Play()
