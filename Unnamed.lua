@@ -1330,8 +1330,7 @@ Info.Callback = Info.Callback or function() end
 Info.ChangeTextOnPick = Info.ChangeTextOnPick or false
 
 if Info.MultiChoice then
-    Info.Default = Info.Default or {}
-    library.MultiDrop[Info.Text] = {}
+    Selected_Options = Info.Default or {}
 end
 
 local insidedropdown = {}
@@ -1437,7 +1436,7 @@ if Info.Default then
         library.Flags[Info.Flag] = Info.Default
     end
     if Info.ChangeTextOnPick then
-        dropdownText.Text = Info.MultiChoice and concat(Info.Default, ", ") or Info.Default
+        dropdownText.Text = Info.MultiChoice and concat(Selected_Options, ", ") or Info.Default
     end
 end
 
@@ -1504,22 +1503,22 @@ end)
 dropdownElementButton.MouseButton1Click:Connect(function()
     if Info.MultiChoice then
         if not table.find(Info.Default[Info.Text],dropdownElementText.Text) then
-            table.insert(Info.Default[Info.Text],dropdownElementText.Text)
+            Selected_Options[dropdownElementText.Text] = nil
             task.wait()
             TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.Highlight2}):Play()
         else
-            table.remove(Info.Default[Info.Text],getindex(dropdownElementText.Text,Info.Default[Info.Text]))
+            Selected_Options[dropdownElementText.Text] = dropdownElementText.Text
             task.wait()
             TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.ItemText}):Play()
         end 
     end
 
-    task.spawn(Info.Callback,Info.MultiChoice and Info.Default[Info.Text] or dropdownElementText.Text)
+    task.spawn(Info.Callback,Info.MultiChoice and Selected_Options or dropdownElementText.Text)
     if Info.Flag then
-        library.Flags[Info.Flag] = Info.MultiChoice and Info.Default[Info.Text] or dropdownElementText.Text
+        library.Flags[Info.Flag] = Info.MultiChoice and Selected_Options or dropdownElementText.Text
     end
     if Info.ChangeTextOnPick then
-        dropdownText.Text = Info.MultiChoice and concat(Info.Default[Info.Text], ", ") or dropdownElementText.Text
+        dropdownText.Text = Info.MultiChoice and Selected_Options or dropdownElementText.Text
     end
 
     TweenService:Create(dropdownFrame, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {BackgroundColor3 = Theme.ItemFrame}):Play()
