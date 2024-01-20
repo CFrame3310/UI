@@ -1502,7 +1502,7 @@ end)
 
 dropdownElementButton.MouseButton1Click:Connect(function()
     if Info.MultiChoice then
-        if not table.find(Info.Default[Info.Text],dropdownElementText.Text) then
+        if Selected_Options[dropdownElementText.Text] then
             Selected_Options[dropdownElementText.Text] = nil
             task.wait()
             TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.Highlight2}):Play()
