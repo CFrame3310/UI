@@ -1497,31 +1497,29 @@ end)
 
 dropdownElement.InputEnded:Connect(function(input)
     if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        if dropdownElementText.TextColor3 ~= Theme.Highlight2 then
-            TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.ItemText}):Play()
-        end
+        TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.ItemText}):Play()
     end
 end)
 
 dropdownElementButton.MouseButton1Click:Connect(function()
     if Info.MultiChoice then
-        if not table.find(library.MultiDrop[Info.Text],dropdownElementText.Text) then
-            table.insert(library.MultiDrop[Info.Text],dropdownElementText.Text)
-            wait()
+        if not table.find(Info.Default[Info.Text],dropdownElementText.Text) then
+            table.insert(Info.Default[Info.Text],dropdownElementText.Text)
+            task.wait()
             TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.Highlight2}):Play()
         else
-            table.remove(library.MultiDrop[Info.Text],getindex(dropdownElementText.Text,library.MultiDrop[Info.Text]))
-            wait()
+            table.remove(Info.Default[Info.Text],getindex(dropdownElementText.Text,Info.Default[Info.Text]))
+            task.wait()
             TweenService:Create(dropdownElementText, TweenInfo.new(.125, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {TextColor3 = Theme.ItemText}):Play()
         end 
     end
 
-    task.spawn(Info.Callback,Info.MultiChoice and library.MultiDrop[Info.Text] or dropdownElementText.Text)
+    task.spawn(Info.Callback,Info.MultiChoice and Info.Default[Info.Text] or dropdownElementText.Text)
     if Info.Flag then
-        library.Flags[Info.Flag] = Info.MultiChoice and library.MultiDrop[Info.Text] or dropdownElementText.Text
+        library.Flags[Info.Flag] = Info.MultiChoice and Info.Default[Info.Text] or dropdownElementText.Text
     end
     if Info.ChangeTextOnPick then
-        dropdownText.Text = Info.MultiChoice and concat(library.MultiDrop[Info.Text], ", ") or dropdownElementText.Text
+        dropdownText.Text = Info.MultiChoice and concat(Info.Default[Info.Text], ", ") or dropdownElementText.Text
     end
 
     TweenService:Create(dropdownFrame, TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.InOut), {BackgroundColor3 = Theme.ItemFrame}):Play()
