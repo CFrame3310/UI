@@ -1941,7 +1941,7 @@ do
                     BorderColor3 = 'OutlineColor';
                 });
 
-                local ButtonLabel = Library:CreateLabel({
+                local ButtonLabel = Library:Create('TextButton',{
                     Size = UDim2.new(0.9, 0, 1, 0);
                     Position = UDim2.new(0, 6, 0, 0);
                     TextSize = 14;
@@ -1976,8 +1976,8 @@ do
                     Library.RegistryMap[ButtonLabel].Properties.TextColor3 = Selected and 'AccentColor' or 'FontColor';
                 end;
 
-                ButtonLabel.InputBegan:Connect(function(Input)
-                    if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+                ButtonLabel.MouseButton1Click:Connect(function(Input)
+                    --if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
                         local Try = not Selected;
 
                         if Dropdown:GetActiveValues() == 1 and (not Try) and (not Info.AllowNull) then
@@ -2013,7 +2013,7 @@ do
 
                             Library:AttemptSave();
                         end;
-                    end;
+                   -- end;
                 end);
 
                 Table:UpdateButton();
