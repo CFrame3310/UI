@@ -1949,6 +1949,7 @@ do
                     TextXAlignment = Enum.TextXAlignment.Left;
                     ZIndex = 25;
                     Parent = Button;
+                    BackgroundTransparency = 1,
                 });
 
                 Library:OnHighlight(Button, Button,
@@ -1965,7 +1966,6 @@ do
                 end;
 
                 function Table:UpdateButton()
-                    print('Connect')
                     if Info.Multi then
                         Selected = Dropdown.Value[Value];
                         ButtonLabel.TextColor3 = Selected and Color3.fromRGB(0, 255, 0) or Library.FontColor;
