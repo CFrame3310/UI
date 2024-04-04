@@ -1972,7 +1972,7 @@ do
                         ButtonLabel.TextColor3 = Selected and Color3.fromRGB(0, 255, 0) or Library.FontColor;
                     else
                         Selected = Dropdown.Value == Value;
-                        print(Selected and Library.AccentColor or Library.FontColor, Dropdown.Value, Value)
+                        --print(Selected and Library.AccentColor or Library.FontColor, Dropdown.Value, Value)
                         ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
                     end;
                     --ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
