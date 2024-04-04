@@ -1972,8 +1972,8 @@ do
                         Selected = Dropdown.Value == Value;
                         ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
                     end;
-
-                    Library.RegistryMap[ButtonLabel].Properties.TextColor3 = Selected and 'AccentColor' or 'FontColor';
+                   -- Library.RegistryMap[ButtonLabel].Properties.TextColor3
+                    ButtonLabel.TextColor3 = Selected and 'AccentColor' or 'FontColor';
                 end;
 
                 ButtonLabel.MouseButton1Click:Connect(function(Input)
