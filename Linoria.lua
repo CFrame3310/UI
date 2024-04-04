@@ -1851,12 +1851,12 @@ do
         });
 
         local Scrolling = Library:Create('ScrollingFrame', {
-            BackgroundTransparency = 0;
+            BackgroundTransparency = 1;
             CanvasSize = UDim2.new(0, 0, 0, 0);
             Size = UDim2.new(1, 0, 1, 0);
             ZIndex = 21;
             Parent = ListInner;
-
+            BackgroundColor3 = Library.MainColor,
             TopImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png',
             BottomImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png',
 
