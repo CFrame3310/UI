@@ -1930,7 +1930,7 @@ do
                     BackgroundColor3 = Library.MainColor;
                     BorderColor3 = Library.OutlineColor;
                     BorderMode = Enum.BorderMode.Middle;
-                    Size = UDim2.new(0.9, 0, 0, 20);
+                    Size = UDim2.new(1, 0, 0, 20);
                     ZIndex = 23;
                     Active = true,
                     Parent = Scrolling;
@@ -1942,7 +1942,7 @@ do
                 });
 
                 local ButtonLabel = Library:Create('TextButton',{
-                    Size = UDim2.new(0.9, 0, 1, 0);
+                    Size = UDim2.new(1, 0, 1, 0);
                     Position = UDim2.new(0, 6, 0, 0);
                     TextSize = 14;
                     Text = Value;
@@ -1970,6 +1970,7 @@ do
                         ButtonLabel.TextColor3 = Selected and Color3.fromRGB(0, 255, 0) or Library.FontColor;
                     else
                         Selected = Dropdown.Value == Value;
+                        print(Selected)
                         ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
                     end;
                    -- Library.RegistryMap[ButtonLabel].Properties.TextColor3
@@ -2026,7 +2027,7 @@ do
             ListOuter.Size = UDim2.new(1, -8, 0, Y);
             print(Layout.AbsoluteContentSize.Y)
             
-            Scrolling.CanvasSize = UDim2.new(0, 0, 0, (Count * 20) + 10);
+            Scrolling.CanvasSize = UDim2.new(0, 0, 0, (Count * 20) + 50);
             --Layout.AbsoluteContentSize.Y - 50
             -- ListOuter.Size = UDim2.new(1, -8, 0, (#Values * 20) + 2);
         end;
