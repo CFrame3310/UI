@@ -1944,7 +1944,7 @@ do
                 local ButtonLabel = Library:Create('TextButton',{
                     Size = UDim2.new(1, 0, 1, 0);
                     Position = UDim2.new(0, 6, 0, 0);
-                    TextSize = 5;
+                    TextSize = 10;
                     Text = Value;
                     TextXAlignment = Enum.TextXAlignment.Left;
                     ZIndex = 25;
@@ -1974,7 +1974,7 @@ do
                         print(Selected)
                         ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
                     end;
-                    ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
+                    --ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
                    -- Library.RegistryMap[ButtonLabel].Properties.TextColor3
                     --ButtonLabel.TextColor3 = Selected and 'AccentColor' or 'FontColor';
                 end;
