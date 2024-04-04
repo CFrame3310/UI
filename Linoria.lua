@@ -1965,6 +1965,7 @@ do
                 end;
 
                 function Table:UpdateButton()
+                    print('Connect')
                     if Info.Multi then
                         Selected = Dropdown.Value[Value];
                         ButtonLabel.TextColor3 = Selected and Color3.fromRGB(0, 255, 0) or Library.FontColor;
@@ -1973,6 +1974,7 @@ do
                         print(Selected)
                         ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
                     end;
+                    ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
                    -- Library.RegistryMap[ButtonLabel].Properties.TextColor3
                     --ButtonLabel.TextColor3 = Selected and 'AccentColor' or 'FontColor';
                 end;
