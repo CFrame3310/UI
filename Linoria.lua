@@ -1944,7 +1944,7 @@ do
                 local ButtonLabel = Library:Create('TextButton',{
                     Size = UDim2.new(1, 0, 1, 0);
                     Position = UDim2.new(0, 6, 0, 0);
-                    TextSize = 10;
+                    TextSize = 8;
                     Text = Value;
                     TextXAlignment = Enum.TextXAlignment.Left;
                     ZIndex = 25;
@@ -1952,10 +1952,10 @@ do
                     BackgroundTransparency = 1,
                 });
 
-                Library:OnHighlight(Button, Button,
+                --[[Library:OnHighlight(Button, Button,
                     { BorderColor3 = 'AccentColor', ZIndex = 24 },
                     { BorderColor3 = 'OutlineColor', ZIndex = 23 }
-                );
+                );]]
 
                 local Selected;
 
@@ -1966,12 +1966,12 @@ do
                 end;
 
                 function Table:UpdateButton()
-                    if Info.Multi then
+                   if Info.Multi then
                         Selected = Dropdown.Value[Value];
                         ButtonLabel.TextColor3 = Selected and Color3.fromRGB(0, 255, 0) or Library.FontColor;
                     else
                         Selected = Dropdown.Value == Value;
-                        print(Selected)
+                        print(Selected and Library.AccentColor or Library.FontColor, Dropdown.Value, Value)
                         ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
                     end;
                     --ButtonLabel.TextColor3 = Selected and Library.AccentColor or Library.FontColor;
