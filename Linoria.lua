@@ -1944,7 +1944,7 @@ do
                 local ButtonLabel = Library:Create('TextButton',{
                     Size = UDim2.new(1, 0, 1, 0);
                     Position = UDim2.new(0, 6, 0, 0);
-                    TextSize = 14;
+                    TextSize = 5;
                     Text = Value;
                     TextXAlignment = Enum.TextXAlignment.Left;
                     ZIndex = 25;
