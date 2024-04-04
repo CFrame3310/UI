@@ -1930,7 +1930,7 @@ do
                     BackgroundColor3 = Library.MainColor;
                     BorderColor3 = Library.OutlineColor;
                     BorderMode = Enum.BorderMode.Middle;
-                    Size = UDim2.new(1, -1, 0, 10);
+                    Size = UDim2.new(1, 0, 0, 20);
                     ZIndex = 23;
                     Active = true,
                     Parent = Scrolling;
@@ -2026,7 +2026,7 @@ do
             ListOuter.Size = UDim2.new(1, -8, 0, Y);
             print(Layout.AbsoluteContentSize.Y)
             
-            Scrolling.CanvasSize = UDim2.new(0, 0, 0, Layout.AbsoluteContentSize.Y - 100);
+            Scrolling.CanvasSize = UDim2.new(0, 0, 0, Layout.AbsoluteContentSize.Y - 50);
 
             -- ListOuter.Size = UDim2.new(1, -8, 0, (#Values * 20) + 2);
         end;
