@@ -1930,7 +1930,7 @@ do
                     BackgroundColor3 = Library.MainColor;
                     BorderColor3 = Library.OutlineColor;
                     BorderMode = Enum.BorderMode.Middle;
-                    Size = UDim2.new(1, 0, 0, 20);
+                    Size = UDim2.new(0.8, 0, 0, 20);
                     ZIndex = 23;
                     Active = true,
                     Parent = Scrolling;
@@ -1942,7 +1942,7 @@ do
                 });
 
                 local ButtonLabel = Library:CreateLabel({
-                    Size = UDim2.new(1, 0, 1, 0);
+                    Size = UDim2.new(0.8, 0, 1, 0);
                     Position = UDim2.new(0, 6, 0, 0);
                     TextSize = 14;
                     Text = Value;
