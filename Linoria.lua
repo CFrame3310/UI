@@ -1,7 +1,7 @@
 if game:GetService("CoreGui"):FindFirstChild("Function") then
     game:GetService("CoreGui"):FindFirstChild("Function"):Destroy()
 end
-print('Linoria UI Version 25.2.3')
+print('Linoria UI Version 25.2.4')
 local InputService = game:GetService('UserInputService');
 local TextService = game:GetService('TextService');
 local TweenService = game:GetService('TweenService');
@@ -126,6 +126,7 @@ function Library:MakeDraggable(Instance, Cutoff)
             dragging = true
             dragStart = input.Position
             startPos = Instance.Position
+                print('start')
         end;
     end)
     
@@ -145,12 +146,14 @@ function Library:MakeDraggable(Instance, Cutoff)
                 )
             )
             Instance.Position = UDim2.new(0, clampedPos.X, 0, clampedPos.Y)
+                print('move')
         end
     end)
     
     Instance.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
             dragging = false
+                print('end')
         end
     end)
 end;
@@ -2462,7 +2465,7 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
-    Library:MakeDraggable(Outer, 25);
+    
 
     local Inner = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
@@ -2488,6 +2491,8 @@ function Library:CreateWindow(...)
         Parent = Inner;
     });
 
+    Library:MakeDraggable(WindowLabel, 25);
+    
     local MainSectionOuter = Library:Create('Frame', {
         BackgroundColor3 = Library.BackgroundColor;
         BorderColor3 = Library.OutlineColor;
