@@ -104,33 +104,69 @@ function Library:CreateLabel(Properties, IsHud)
     return Library:Create(_Instance, Properties);
 end;
 
-function Library:MakeDraggable(Instance, Cutoff)
-    Instance.Active = true;
+function Library:MakeDraggable(topbarobject, object)
+  local UserInputService = game.UserInputService
+  local TweenService = game.TweenService
+  local Dragging = nil
+  local DragInput = nil
+  local DragStart = nil
+  local StartPosition = nil
 
-   Instance.InputBegan:Connect(function(Input)
-        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-            local ObjPos = Vector2.new(
-                Mouse.X - Instance.AbsolutePosition.X,
-                Mouse.Y - Instance.AbsolutePosition.Y
-            );
+  local function clampPosition(position)
+      local screenSize = ScreenGui.AbsoluteSize
+      local guiSize = object.AbsoluteSize
+      
+      local minX, minY = 0, 0
+      local maxX = screenSize.X - guiSize.X
+      local maxY = screenSize.Y - guiSize.Y
+      
+      return Vector2.new(math.clamp(position.X, minX, maxX or 1), math.clamp(position.Y, minY, maxY or 1))
+  end
 
-            if ObjPos.Y > (Cutoff or 40) then
-                return;
-            end;
+  local function Update(input)
+    local Delta = input.Position - DragStart
+    local pos =
+    UDim2.new(
+      StartPosition.X.Scale,
+      StartPosition.X.Offset + Delta.X,
+      StartPosition.Y.Scale,
+      StartPosition.Y.Offset + Delta.Y
+    )
+    local clampedPos = clampPosition(Vector2.new(pos.X.Offset, pos.Y.Offset))
+    local Tween = TweenService:Create(object, TweenInfo.new(0.1), {Position = UDim2.new(0, clampedPos.X, 0, clampedPos.Y)})
+    Tween:Play()
+  end
 
-            while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
-                Instance.Position = UDim2.new(
-                    0,
-                    Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X),
-                    0,
-                    Mouse.Y - ObjPos.Y + (Instance.Size.Y.Offset * Instance.AnchorPoint.Y)
-                );
+  topbarobject.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+      Dragging = true
+      DragStart = input.Position
+      StartPosition = object.Position
 
-                RenderStepped:Wait();
-            end;
-        end;
-    end)
-end;
+      input.Changed:Connect(function()
+        if input.UserInputState == Enum.UserInputState.End then
+          Dragging = false
+        end
+      end)
+    end
+  end)
+
+  topbarobject.InputChanged:Connect(function(input)
+    if
+      input.UserInputType == Enum.UserInputType.MouseMovement or
+      input.UserInputType == Enum.UserInputType.Touch
+    then
+      DragInput = input
+    end
+  end)
+
+  UserInputService.InputChanged:Connect(function(input)
+    if input == DragInput and Dragging then
+      Update(input)
+    end
+  end)
+end
+
 
 function Library:AddToolTip(InfoStr, HoverInstance)
     local X, Y = Library:GetTextBounds(InfoStr, Enum.Font.Code, 14);
