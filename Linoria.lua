@@ -1,7 +1,7 @@
 if game:GetService("CoreGui"):FindFirstChild("Function") then
     game:GetService("CoreGui"):FindFirstChild("Function"):Destroy()
 end
-
+print('Linoria UI Version 25.2.1')
 local InputService = game:GetService('UserInputService');
 local TextService = game:GetService('TextService');
 local TweenService = game:GetService('TweenService');
@@ -104,64 +104,45 @@ function Library:CreateLabel(Properties, IsHud)
     return Library:Create(_Instance, Properties);
 end;
 
-local UserInputService = game:GetService("UserInputService")
-
 function Library:MakeDraggable(Instance, Cutoff)
-    Instance.Active = true
-
-    local dragging, dragInput, startPos, startMousePos
-
     local function clampPosition(position)
-        local screenSize = workspace.CurrentCamera.ViewportSize
-        local guiSize = Instance.AbsoluteSize
-
-        local minX, minY = 0, 0
-        local maxX = screenSize.X - guiSize.X
-        local maxY = screenSize.Y - guiSize.Y
-
-        return Vector2.new(math.clamp(position.X, minX, maxX), math.clamp(position.Y, minY, maxY))
+      local screenSize = ScreenGui.AbsoluteSize
+      local guiSize = Instance.AbsoluteSize
+      
+      local minX, minY = 0, 0
+      local maxX = screenSize.X - guiSize.X
+      local maxY = screenSize.Y - guiSize.Y
+      
+      return Vector2.new(math.clamp(position.X, minX, maxX or 1), math.clamp(position.Y, minY, maxY or 1))
     end
+    
+    Instance.Active = true;
 
-    Instance.InputBegan:Connect(function(Input)
+   Instance.InputBegan:Connect(function(Input)
         if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
             local ObjPos = Vector2.new(
-                Input.Position.X - Instance.AbsolutePosition.X,
-                Input.Position.Y - Instance.AbsolutePosition.Y
-            )
+                Mouse.X - Instance.AbsolutePosition.X,
+                Mouse.Y - Instance.AbsolutePosition.Y
+            );
 
             if ObjPos.Y > (Cutoff or 40) then
-                return
-            end
+                return;
+            end;
 
-            dragging = true
-            startPos = Instance.Position
-            startMousePos = Input.Position
-        end
+            while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
+              local newPos = UDim2.new(
+                    0,
+                    Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X),
+                    0,
+                    Mouse.Y - ObjPos.Y + (Instance.Size.Y.Offset * Instance.AnchorPoint.Y)
+                );
+              local clampPos = clampPosition(Vector2.new(newPos.X.Offset, newPos.Y.Offset))
+                Instance.Position = UDim2.new(0, clampPos.X, 0, clampPos.Y);
+                RenderStepped:Wait();
+            end;
+        end;
     end)
-
-    Instance.InputChanged:Connect(function(Input)
-        if Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch then
-            dragInput = Input
-        end
-    end)
-
-    UserInputService.InputChanged:Connect(function(Input)
-        if dragging and Input == dragInput then
-            local delta = Input.Position - startMousePos
-            local newPos = UDim2.new(0, startPos.X.Offset + delta.X, 0, startPos.Y.Offset + delta.Y)
-
-            -- Clamp position before applying it
-            local clampedPos = clampPosition(Vector2.new(newPos.X.Offset, newPos.Y.Offset))
-            Instance.Position = UDim2.new(0, clampedPos.X, 0, clampedPos.Y)
-        end
-    end)
-
-    Instance.InputEnded:Connect(function(Input)
-        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-            dragging = false
-        end
-    end)
-end
+end;
 
 function Library:AddToolTip(InfoStr, HoverInstance)
     local X, Y = Library:GetTextBounds(InfoStr, Enum.Font.Code, 14);
