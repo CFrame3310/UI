@@ -1,7 +1,7 @@
 if game:GetService("CoreGui"):FindFirstChild("Function") then
     game:GetService("CoreGui"):FindFirstChild("Function"):Destroy()
 end
-print('Linoria UI Version 25.2.1')
+print('Linoria UI Version 25.2.2')
 local InputService = game:GetService('UserInputService');
 local TextService = game:GetService('TextService');
 local TweenService = game:GetService('TweenService');
@@ -104,6 +104,9 @@ function Library:CreateLabel(Properties, IsHud)
     return Library:Create(_Instance, Properties);
 end;
 
+local dragging
+local dragStart
+local startPos
 function Library:MakeDraggable(Instance, Cutoff)
     local function clampPosition(position)
       local screenSize = ScreenGui.AbsoluteSize
@@ -113,34 +116,42 @@ function Library:MakeDraggable(Instance, Cutoff)
       local maxX = screenSize.X - guiSize.X
       local maxY = screenSize.Y - guiSize.Y
       
-      return Vector2.new(math.clamp(position.X, minX, maxX or 1), math.clamp(position.Y, minY, maxY or 1))
+      return Vector2.new(math.clamp(position.X, minX, maxX or 1), math.clamp(position.Y, minY, maxY))
     end
     
     Instance.Active = true;
 
-   Instance.InputBegan:Connect(function(Input)
+    Instance.InputBegan:Connect(function(Input)
         if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-            local ObjPos = Vector2.new(
-                Mouse.X - Instance.AbsolutePosition.X,
-                Mouse.Y - Instance.AbsolutePosition.Y
-            );
-
-            if ObjPos.Y > (Cutoff or 40) then
-                return;
-            end;
-
-            while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
-              local newPos = UDim2.new(
-                    0,
-                    Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X),
-                    0,
-                    Mouse.Y - ObjPos.Y + (Instance.Size.Y.Offset * Instance.AnchorPoint.Y)
-                );
-              local clampPos = clampPosition(Vector2.new(newPos.X.Offset, newPos.Y.Offset))
-                Instance.Position = UDim2.new(0, clampPos.X, 0, clampPos.Y);
-                RenderStepped:Wait();
-            end;
+            dragging = true
+            dragStart = input.Position
+            startPos = frame.Position
         end;
+    end)
+    
+    Instance.InputChanged:Connect(function(input)
+        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+            local delta = input.Position - dragStart
+            local newPosition = UDim2.new(
+                startPos.X.Scale,
+                startPos.X.Offset + delta.X,
+                startPos.Y.Scale,
+                startPos.Y.Offset + delta.Y
+            )
+            local clampedPos = clampPosition(
+                Vector2.new(
+                    newPosition.X.Offset,
+                    newPosition.Y.Offset
+                )
+            )
+            Instance.Position = UDim2.new(0, clampedPos.X, 0, clampedPos.Y)
+        end
+    end)
+    
+    Instance.InputEnded:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = false
+        end
     end)
 end;
 
