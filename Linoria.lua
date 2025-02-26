@@ -1,7 +1,7 @@
 if game:GetService("CoreGui"):FindFirstChild("Function") then
     game:GetService("CoreGui"):FindFirstChild("Function"):Destroy()
 end
-print('Linoria UI Version 25.2.2')
+print('Linoria UI Version 25.2.3')
 local InputService = game:GetService('UserInputService');
 local TextService = game:GetService('TextService');
 local TweenService = game:GetService('TweenService');
@@ -121,11 +121,11 @@ function Library:MakeDraggable(Instance, Cutoff)
     
     Instance.Active = true;
 
-    Instance.InputBegan:Connect(function(Input)
+    Instance.InputBegan:Connect(function(input)
         if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
             dragging = true
             dragStart = input.Position
-            startPos = frame.Position
+            startPos = Instance.Position
         end;
     end)
     
