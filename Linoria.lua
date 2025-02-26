@@ -2262,7 +2262,7 @@ do
 
     Library.Watermark = WatermarkOuter;
     Library.WatermarkText = WatermarkLabel;
-    Library:MakeDraggable(Library.Watermark);
+    Library:MakeDraggable(Library.Watermark, Library.Watermark);
 
 
 
@@ -2333,7 +2333,7 @@ do
 
     Library.KeybindFrame = KeybindOuter;
     Library.KeybindContainer = KeybindContainer;
-    Library:MakeDraggable(KeybindOuter);
+    Library:MakeDraggable(KeybindOuter, KeybindContainer);
 end;
 
 function Library:SetWatermarkVisibility(Bool)
@@ -2475,7 +2475,7 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
-    Library:MakeDraggable(Outer, 25);
+    Library:MakeDraggable(Outer, Outer);
 
     local Inner = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
