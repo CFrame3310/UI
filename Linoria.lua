@@ -1,7 +1,7 @@
 if game:GetService("CoreGui"):FindFirstChild("Function") then
     game:GetService("CoreGui"):FindFirstChild("Function"):Destroy()
 end
-print('Linoria UI Version 0.2.6')
+print('Linoria UI Version 0.2.7')
 local InputService = game:GetService('UserInputService');
 local TextService = game:GetService('TextService');
 local TweenService = game:GetService('TweenService');
@@ -105,40 +105,37 @@ function Library:CreateLabel(Properties, IsHud)
 end;
 
 function Library:MakeDraggable(Instance, Cutoff)
-    Instance.Active = true;
+    Instance.Active = true
 
-   Instance.InputBegan:Connect(function(Input)
+    Instance.InputBegan:Connect(function(Input)
         if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
             local ObjPos = Vector2.new(
                 Mouse.X - Instance.AbsolutePosition.X,
                 Mouse.Y - Instance.AbsolutePosition.Y
-            );
+            )
 
             if ObjPos.Y > (Cutoff or 40) then
-                return;
-            end;
+                return
+            end
 
             while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
-                
-                Instance.Position = UDim2.new(
-                    0,
-                    Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X),
-                    0,
-                    Mouse.Y - ObjPos.Y + (Instance.Size.Y.Offset * Instance.AnchorPoint.Y)
-                );
-                print('UDim : ', UDim2.new(
-                    0,
-                    Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X),
-                    0,
-                    Mouse.Y - ObjPos.Y + (Instance.Size.Y.Offset * Instance.AnchorPoint.Y)
-                ),'\nResult X : ',Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X),
-                '\nScreenSize : ',ScreenGui.AbsoluteSize)
+                local NewX = Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X)
+                local NewY = Mouse.Y - ObjPos.Y + (Instance.Size.Y.Offset * Instance.AnchorPoint.Y)
 
-                RenderStepped:Wait();
-            end;
-        end;
+                -- Get screen size
+                local ScreenSize = Instance.Parent.AbsoluteSize
+
+                -- Clamp position within screen bounds
+                NewX = math.clamp(NewX, 0, ScreenSize.X - Instance.Size.X.Offset)
+                NewY = math.clamp(NewY, 0, ScreenSize.Y - Instance.Size.Y.Offset)
+
+                Instance.Position = UDim2.new(0, NewX, 0, NewY)
+
+                RenderStepped:Wait()
+            end
+        end
     end)
-end;
+end
 
 function Library:AddToolTip(InfoStr, HoverInstance)
     local X, Y = Library:GetTextBounds(InfoStr, Enum.Font.Code, 14);
@@ -2447,7 +2444,7 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
-    
+    Library:MakeDraggable(Outer, 25);
 
     local Inner = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
@@ -2472,8 +2469,6 @@ function Library:CreateWindow(...)
         ZIndex = 1;
         Parent = Inner;
     });
-
-    Library:MakeDraggable(WindowLabel, 25);
     
     local MainSectionOuter = Library:Create('Frame', {
         BackgroundColor3 = Library.BackgroundColor;
