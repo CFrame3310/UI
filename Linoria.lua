@@ -104,69 +104,64 @@ function Library:CreateLabel(Properties, IsHud)
     return Library:Create(_Instance, Properties);
 end;
 
-function Library:MakeDraggable(topbarobject, object)
-  local UserInputService = game.UserInputService
-  local TweenService = game.TweenService
-  local Dragging = nil
-  local DragInput = nil
-  local DragStart = nil
-  local StartPosition = nil
+local UserInputService = game:GetService("UserInputService")
 
-  local function clampPosition(position)
-      local screenSize = ScreenGui.AbsoluteSize
-      local guiSize = object.AbsoluteSize
-      
-      local minX, minY = 0, 0
-      local maxX = screenSize.X - guiSize.X
-      local maxY = screenSize.Y - guiSize.Y
-      
-      return Vector2.new(math.clamp(position.X, minX, maxX or 1), math.clamp(position.Y, minY, maxY or 1))
-  end
+function Library:MakeDraggable(Instance, Cutoff)
+    Instance.Active = true
 
-  local function Update(input)
-    local Delta = input.Position - DragStart
-    local pos =
-    UDim2.new(
-      StartPosition.X.Scale,
-      StartPosition.X.Offset + Delta.X,
-      StartPosition.Y.Scale,
-      StartPosition.Y.Offset + Delta.Y
-    )
-    local clampedPos = clampPosition(Vector2.new(pos.X.Offset, pos.Y.Offset))
-    local Tween = TweenService:Create(object, TweenInfo.new(0.1), {Position = UDim2.new(0, clampedPos.X, 0, clampedPos.Y)})
-    Tween:Play()
-  end
+    local dragging, dragInput, startPos, startMousePos
 
-  topbarobject.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-      Dragging = true
-      DragStart = input.Position
-      StartPosition = object.Position
+    local function clampPosition(position)
+        local screenSize = workspace.CurrentCamera.ViewportSize
+        local guiSize = Instance.AbsoluteSize
 
-      input.Changed:Connect(function()
-        if input.UserInputState == Enum.UserInputState.End then
-          Dragging = false
+        local minX, minY = 0, 0
+        local maxX = screenSize.X - guiSize.X
+        local maxY = screenSize.Y - guiSize.Y
+
+        return Vector2.new(math.clamp(position.X, minX, maxX), math.clamp(position.Y, minY, maxY))
+    end
+
+    Instance.InputBegan:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+            local ObjPos = Vector2.new(
+                Input.Position.X - Instance.AbsolutePosition.X,
+                Input.Position.Y - Instance.AbsolutePosition.Y
+            )
+
+            if ObjPos.Y > (Cutoff or 40) then
+                return
+            end
+
+            dragging = true
+            startPos = Instance.Position
+            startMousePos = Input.Position
         end
-      end)
-    end
-  end)
+    end)
 
-  topbarobject.InputChanged:Connect(function(input)
-    if
-      input.UserInputType == Enum.UserInputType.MouseMovement or
-      input.UserInputType == Enum.UserInputType.Touch
-    then
-      DragInput = input
-    end
-  end)
+    Instance.InputChanged:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = Input
+        end
+    end)
 
-  UserInputService.InputChanged:Connect(function(input)
-    if input == DragInput and Dragging then
-      Update(input)
-    end
-  end)
+    UserInputService.InputChanged:Connect(function(Input)
+        if dragging and Input == dragInput then
+            local delta = Input.Position - startMousePos
+            local newPos = UDim2.new(0, startPos.X.Offset + delta.X, 0, startPos.Y.Offset + delta.Y)
+
+            -- Clamp position before applying it
+            local clampedPos = clampPosition(Vector2.new(newPos.X.Offset, newPos.Y.Offset))
+            Instance.Position = UDim2.new(0, clampedPos.X, 0, clampedPos.Y)
+        end
+    end)
+
+    Instance.InputEnded:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+            dragging = false
+        end
+    end)
 end
-
 
 function Library:AddToolTip(InfoStr, HoverInstance)
     local X, Y = Library:GetTextBounds(InfoStr, Enum.Font.Code, 14);
@@ -2262,7 +2257,7 @@ do
 
     Library.Watermark = WatermarkOuter;
     Library.WatermarkText = WatermarkLabel;
-    Library:MakeDraggable(Library.Watermark, Library.Watermark);
+    Library:MakeDraggable(Library.Watermark);
 
 
 
@@ -2333,7 +2328,7 @@ do
 
     Library.KeybindFrame = KeybindOuter;
     Library.KeybindContainer = KeybindContainer;
-    Library:MakeDraggable(KeybindOuter, KeybindContainer);
+    Library:MakeDraggable(KeybindOuter);
 end;
 
 function Library:SetWatermarkVisibility(Bool)
@@ -2475,7 +2470,7 @@ function Library:CreateWindow(...)
         Parent = ScreenGui;
     });
 
-    Library:MakeDraggable(Outer, Outer);
+    Library:MakeDraggable(Outer, 25);
 
     local Inner = Library:Create('Frame', {
         BackgroundColor3 = Library.MainColor;
