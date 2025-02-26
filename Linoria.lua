@@ -1,7 +1,7 @@
 if game:GetService("CoreGui"):FindFirstChild("Function") then
     game:GetService("CoreGui"):FindFirstChild("Function"):Destroy()
 end
-print('Linoria UI Version 25.2.4')
+print('Linoria UI Version 25.2.5')
 local InputService = game:GetService('UserInputService');
 local TextService = game:GetService('TextService');
 local TweenService = game:GetService('TweenService');
@@ -104,59 +104,39 @@ function Library:CreateLabel(Properties, IsHud)
     return Library:Create(_Instance, Properties);
 end;
 
-local dragging
-local dragStart
-local startPos
 function Library:MakeDraggable(Instance, Cutoff)
-    local function clampPosition(position)
-      local screenSize = ScreenGui.AbsoluteSize
-      local guiSize = Instance.AbsoluteSize
-      
-      local minX, minY = 0, 0
-      local maxX = screenSize.X - guiSize.X
-      local maxY = screenSize.Y - guiSize.Y
-      
-      return Vector2.new(math.clamp(position.X, minX, maxX or 1), math.clamp(position.Y, minY, maxY))
-    end
-    
-    Instance.Active = true;
+    Instance.Active = true
 
-    Instance.InputBegan:Connect(function(input)
+    Instance.InputBegan:Connect(function(Input)
         if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = Instance.Position
-                print('start')
-        end;
-    end)
-    
-    Instance.InputChanged:Connect(function(input)
-        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
-            local delta = input.Position - dragStart
-            local newPosition = UDim2.new(
-                startPos.X.Scale,
-                startPos.X.Offset + delta.X,
-                startPos.Y.Scale,
-                startPos.Y.Offset + delta.Y
+            local ObjPos = Vector2.new(
+                Mouse.X - Instance.AbsolutePosition.X,
+                Mouse.Y - Instance.AbsolutePosition.Y
             )
-            local clampedPos = clampPosition(
-                Vector2.new(
-                    newPosition.X.Offset,
-                    newPosition.Y.Offset
-                )
-            )
-            Instance.Position = UDim2.new(0, clampedPos.X, 0, clampedPos.Y)
-                print('move')
+
+            if ObjPos.Y > (Cutoff or 40) then
+                return
+            end
+
+            while InputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do
+                local NewX = Mouse.X - ObjPos.X + (Instance.Size.X.Offset * Instance.AnchorPoint.X)
+                local NewY = Mouse.Y - ObjPos.Y + (Instance.Size.Y.Offset * Instance.AnchorPoint.Y)
+
+                -- Get screen size
+                local ScreenSize = Instance.Parent.AbsoluteSize
+
+                -- Clamp position within screen bounds
+                NewX = math.clamp(NewX, 0, ScreenSize.X - Instance.Size.X.Offset)
+                NewY = math.clamp(NewY, 0, ScreenSize.Y - Instance.Size.Y.Offset)
+
+                Instance.Position = UDim2.new(0, NewX, 0, NewY)
+
+                RenderStepped:Wait()
+            end
         end
     end)
-    
-    Instance.InputEnded:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = false
-                print('end')
-        end
-    end)
-end;
+end
+
 
 function Library:AddToolTip(InfoStr, HoverInstance)
     local X, Y = Library:GetTextBounds(InfoStr, Enum.Font.Code, 14);
