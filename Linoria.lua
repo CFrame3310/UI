@@ -1,7 +1,7 @@
 if game:GetService("CoreGui"):FindFirstChild("Function") then
     game:GetService("CoreGui"):FindFirstChild("Function"):Destroy()
 end
-print('Linoria UI Version 0.2.7')
+print('Linoria UI Version 0.2.8')
 local InputService = game:GetService('UserInputService');
 local TextService = game:GetService('TextService');
 local TweenService = game:GetService('TweenService');
@@ -126,8 +126,8 @@ function Library:MakeDraggable(Instance, Cutoff)
                 local ScreenSize = Instance.Parent.AbsoluteSize
 
                 -- Clamp position within screen bounds
-                NewX = math.clamp(NewX, 0, ScreenSize.X - Instance.Size.X.Offset)
-                NewY = math.clamp(NewY, 0, ScreenSize.Y - Instance.Size.Y.Offset)
+               -- NewX = math.clamp(NewX, 0, ScreenSize.X - Instance.Size.X.Offset)
+            --    NewY = math.clamp(NewY, 0, ScreenSize.Y - Instance.Size.Y.Offset)
 
                 Instance.Position = UDim2.new(0, NewX, 0, NewY)
 
