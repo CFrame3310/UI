@@ -2091,6 +2091,13 @@ do
             end;
         end);
 
+        function Dropdown:SetNewValues(values)
+            Dropdown.Values = NewValues
+            Dropdown.Value = Dropdown.Multi and {} or nil
+            Dropdown:SetValues()
+            Dropdown:Display()     
+        end
+        
         InputService.InputBegan:Connect(function(Input)
             if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
                 local AbsPos, AbsSize = ListOuter.AbsolutePosition, ListOuter.AbsoluteSize;
